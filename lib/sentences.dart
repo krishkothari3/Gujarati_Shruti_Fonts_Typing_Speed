@@ -6,7 +6,10 @@ import 'package:gujarati_shruti_fonts_typing/home_screen_page.dart';
 class SentencePage extends StatefulWidget {
   String temperoryText;
 
-  SentencePage({Key? key, required this.temperoryText}) : super(key: key);
+  SentencePage({Key? key, required this.temperoryText}) {
+    print("Sentence page");
+    print(temperoryText);
+  }
 
   // TextEditingController inputController = TextEditingController(text: "");
   @override
@@ -33,16 +36,24 @@ class _SentencePageState extends State<SentencePage> {
   List<String> wordList = [];
 
   Widget getSpan(String a, Color c) {
-    return Text(
-      a,
-      style: TextStyle(color: c, fontSize: screenHeight! / 30),
-    );
+    if (screenHeight! != null)
+      return Text(
+        a,
+        style: TextStyle(color: c, fontSize: screenHeight! / 30),
+      );
+    else
+      return Text(
+        a,
+        style: TextStyle(color: c, fontSize: 15),
+      );
+    ;
   }
 
   List<Widget> colorFunction(List<String> b, List<Color> color) {
     List<Widget> l = [];
     for (int i = 0; i < b.length; i++) {
-      // print("::::::::::::::::${b[i]}");
+      print("::::1::::::::::::${b[i]}");
+      print(":::2:::::::::::::${color[i]}");
       l.add(getSpan(b[i] + " ", color[i]));
     }
     return l;
@@ -67,19 +78,23 @@ class _SentencePageState extends State<SentencePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     displaySentence = widget.temperoryText.split(" ");
+    print("displaySentence");
+    print(displaySentence);
     colorList = colorAppendList(displaySentence.length);
   }
 
   // var hour = DateTime.utc(2023,2,3);
 
 // int wordIndex = 0;
+  double? screenWidth;
+  double? screenHeight;
+
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
+    screenHeight = MediaQuery.of(context).size.height;
     return KeyboardListener(
       focusNode: FocusNode(),
       autofocus: true,
@@ -97,14 +112,15 @@ class _SentencePageState extends State<SentencePage> {
           speed = getCPM(displayGujaratiText.length);
           temp = convertor(value.character);
           if (temp == " ") {
-            print(calcTextSize(displaySentence[0], TextStyle(fontSize: screenHeight! / 30))
+            print(calcTextSize(
+                    displaySentence[0], TextStyle(fontSize: screenHeight! / 30))
                 .width);
 
             // displaySentence.removeAt(0);
             // colorList.removeAt(0);
             // colorFunction(displaySentence, colorList);
-            jumpToIndex += calcTextSize(
-                    displaySentence[colorIndex] + " ", TextStyle(fontSize: screenHeight! / 30))
+            jumpToIndex += calcTextSize(displaySentence[colorIndex] + " ",
+                    TextStyle(fontSize: screenHeight! / 30))
                 .width;
             singlePageController.jumpTo(jumpToIndex);
             if (displayGujaratiText.trim() ==
@@ -124,7 +140,6 @@ class _SentencePageState extends State<SentencePage> {
 
               correctWordCount++;
             } else {
-
               incorrectWordCount++;
             }
             textColor = Colors.red;
@@ -135,7 +150,6 @@ class _SentencePageState extends State<SentencePage> {
               listIndex = 0;
             }
             displayGujaratiText = "";
-
           }
           if (displayGujaratiText.length > 0) {
             // wordIndex++;
@@ -147,8 +161,7 @@ class _SentencePageState extends State<SentencePage> {
               temp = "";
 
               // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
-            }
-            else if (temp == "હ" + "્" &&
+            } else if (temp == "હ" + "્" &&
                 displayGujaratiText[displayGujaratiText.length - 2] == "ક" &&
                 wordList[wordList.length - 1] == "c") {
               displayGujaratiText = displayGujaratiText.substring(
@@ -180,8 +193,7 @@ class _SentencePageState extends State<SentencePage> {
               temp = "";
 
               // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
-            }
-            else if (displayGujaratiText[displayGujaratiText.length - 1] ==
+            } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "ઉ" &&
                 temp == "ઉ") {
               displayGujaratiText = displayGujaratiText.substring(
@@ -928,36 +940,33 @@ class _SentencePageState extends State<SentencePage> {
               // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                 "્") {
-              if(temp == "M"){
+              if (temp == "M") {
                 displayGujaratiText = displayGujaratiText.substring(
                         0, displayGujaratiText.length - 1) +
                     "‌ં";
                 temp = "";
               }
-            }
-            else if(displayGujaratiText[displayGujaratiText.length - 1] ==
-                "ા" || displayGujaratiText[displayGujaratiText.length - 1] ==
-                "ૈ" || displayGujaratiText[displayGujaratiText.length - 1] ==
-                "ૌ" || displayGujaratiText[displayGujaratiText.length - 1] ==
-                "િ" || displayGujaratiText[displayGujaratiText.length - 1] ==
-                "ી" || displayGujaratiText[displayGujaratiText.length - 1] ==
-                "ુ" || displayGujaratiText[displayGujaratiText.length - 1] ==
-                "ૂ" || displayGujaratiText[displayGujaratiText.length - 1] ==
-                "ૅ" || displayGujaratiText[displayGujaratiText.length - 1] ==
-                "ૉ" || displayGujaratiText[displayGujaratiText.length - 1] ==
-                "ૃ" || displayGujaratiText[displayGujaratiText.length - 1] ==
-                "ૄ" || displayGujaratiText[displayGujaratiText.length - 1] ==
-                "ૢ" || displayGujaratiText[displayGujaratiText.length - 1] ==
-                "ૣ" || displayGujaratiText[displayGujaratiText.length - 1] ==
-                "ે" || displayGujaratiText[displayGujaratiText.length - 1] ==
-                "ો"){
-
-              if(temp == "M"){
+            } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
+                    "ા" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ૈ" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ૌ" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "િ" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ી" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ુ" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ૂ" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ૅ" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ૉ" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ૃ" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ૄ" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ૢ" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ૣ" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ે" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ો") {
+              if (temp == "M") {
                 displayGujaratiText += "‌ં";
                 temp = "";
               }
-            }
-            else if (displayGujaratiText[displayGujaratiText.length - 1] ==
+            } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "ં" &&
                 temp == "M") {
               displayGujaratiText = displayGujaratiText.substring(
@@ -1023,12 +1032,12 @@ class _SentencePageState extends State<SentencePage> {
           child: Column(children: [
             Container(
                 width: screenWidth,
-                height: screenHeight / 15,
+                height: screenHeight! / 15,
                 color: Color.fromRGBO(49, 74, 94, 1),
                 child: Row(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(left: screenWidth / 23),
+                      margin: EdgeInsets.only(left: screenWidth! / 23),
                       child: Text(
                         "Correct",
                         style: TextStyle(
@@ -1038,7 +1047,7 @@ class _SentencePageState extends State<SentencePage> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: screenWidth / 13),
+                      margin: EdgeInsets.only(left: screenWidth! / 13),
                       child: Text(
                         "Wrong",
                         style: TextStyle(
@@ -1048,7 +1057,7 @@ class _SentencePageState extends State<SentencePage> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: screenWidth / 13),
+                      margin: EdgeInsets.only(left: screenWidth! / 13),
                       child: Text(
                         "Accuracy",
                         style: TextStyle(
@@ -1058,7 +1067,7 @@ class _SentencePageState extends State<SentencePage> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: screenWidth / 13),
+                      margin: EdgeInsets.only(left: screenWidth! / 13),
                       child: Text(
                         "Speed",
                         style: TextStyle(
@@ -1070,13 +1079,13 @@ class _SentencePageState extends State<SentencePage> {
                   ],
                 )),
             Container(
-                width: screenWidth,
-                height: screenHeight / 15,
+                width: screenWidth!,
+                height: screenHeight! / 15,
                 // color: const Color.fromRGBO(49, 74, 94, 1),
                 child: Row(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(left: screenWidth / 9),
+                      margin: EdgeInsets.only(left: screenWidth! / 9),
                       child: Text(
                         correctWordCount.toString(),
                         style: TextStyle(
@@ -1087,7 +1096,7 @@ class _SentencePageState extends State<SentencePage> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: screenWidth / 5),
+                      margin: EdgeInsets.only(left: screenWidth! / 5),
                       child: Text(
                         incorrectWordCount.toString(),
                         style: TextStyle(
@@ -1097,7 +1106,7 @@ class _SentencePageState extends State<SentencePage> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: screenWidth / 5),
+                      margin: EdgeInsets.only(left: screenWidth! / 5),
                       child: Text(
                         (((correctWordCount) /
                                     (correctWordCount + incorrectWordCount)) *
@@ -1110,7 +1119,7 @@ class _SentencePageState extends State<SentencePage> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: screenWidth / 5.5),
+                      margin: EdgeInsets.only(left: screenWidth! / 5.5),
                       child: Text(
                         speed.toString(),
                         style: TextStyle(
@@ -1123,11 +1132,11 @@ class _SentencePageState extends State<SentencePage> {
                 )),
             Container(
               color: const Color.fromRGBO(49, 74, 94, 1),
-              height: screenHeight / 200,
+              height: screenHeight! / 200,
               width: screenWidth,
             ),
             Container(
-              padding: EdgeInsets.only(top: screenHeight/10),
+              padding: EdgeInsets.only(top: screenHeight! / 10),
               child: SingleChildScrollView(
                 controller: singlePageController,
                 scrollDirection: Axis.horizontal,
@@ -1137,7 +1146,7 @@ class _SentencePageState extends State<SentencePage> {
               ),
             ),
             Container(
-                margin: EdgeInsets.only(top: screenHeight / 100),
+                margin: EdgeInsets.only(top: screenHeight! / 100),
                 child: GestureDetector(
                   onDoubleTap: () {
                     if (inputController.text.isNotEmpty) {
@@ -1148,7 +1157,7 @@ class _SentencePageState extends State<SentencePage> {
                     }
                   },
                   child: Container(
-                    width: screenWidth / 2,
+                    width: screenWidth! / 2,
                     child: TextFormField(
                       decoration: const InputDecoration(
                           hintText: "Type",
@@ -1182,9 +1191,9 @@ class _SentencePageState extends State<SentencePage> {
                 )),
             Container(
               width: screenWidth,
-              height: screenHeight / 10,
+              height: screenHeight! / 10,
               color: Colors.white,
-              margin: EdgeInsets.only(top: screenHeight / 15),
+              margin: EdgeInsets.only(top: screenHeight! / 15),
               child: Column(
                 children: [
                   Text(
@@ -1195,7 +1204,7 @@ class _SentencePageState extends State<SentencePage> {
                         fontWeight: FontWeight.bold),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: screenHeight / 50),
+                    margin: EdgeInsets.only(top: screenHeight! / 50),
                     child: Text(
                       correctWords,
                       style: TextStyle(
@@ -1209,9 +1218,9 @@ class _SentencePageState extends State<SentencePage> {
             ),
             Container(
               width: screenWidth,
-              height: screenHeight / 10,
+              height: screenHeight! / 10,
               color: Colors.white,
-              margin: EdgeInsets.only(top: screenHeight / 30),
+              margin: EdgeInsets.only(top: screenHeight! / 30),
               child: Column(
                 children: [
                   Text(
@@ -1222,7 +1231,7 @@ class _SentencePageState extends State<SentencePage> {
                         fontWeight: FontWeight.bold),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: screenHeight / 50),
+                    margin: EdgeInsets.only(top: screenHeight! / 50),
                     child: Text(
                       incorrectWords,
                       style: TextStyle(
@@ -1504,11 +1513,9 @@ String convertor(var a) {
     return "૭";
   } else if (a == "8") {
     return "૮";
-  }
-  else if (a == "X"){
+  } else if (a == "X") {
     return "ક્ષ" + "્";
-  }
-  else if (a == "9") {
+  } else if (a == "9") {
     return "૯";
   }
   // else if (a == null){
