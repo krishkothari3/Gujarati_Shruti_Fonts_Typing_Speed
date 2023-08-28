@@ -1,13 +1,11 @@
 late int millisecondStart, secondStart, minuteStart, hourofdayStart;
 late int millisecondEnd, secondEnd, minuteEnd, hourofdayEnd;
 void calculateTime(int firstChar) {
-  print("firstchar:::::::$firstChar");
   if (firstChar == 0) {
     // Calendar cal = Calendar.getInstance();
     DateTime cal = DateTime.now();
     millisecondStart = cal.millisecond;
     secondStart = cal.second;
-    print("firstchar:::::::$firstChar");
     minuteStart = cal.minute;
     hourofdayStart = cal.hour;
     millisecondEnd = cal.microsecond;
@@ -27,8 +25,6 @@ void calculateTime(int firstChar) {
 }
 int getCPM(int charsEntered) {
   int seconds = 0, speed = 0;
-  print('DATA::1:$minuteEnd');
-  print('DATA::2:$minuteStart');
   if (hourofdayEnd == hourofdayStart) {
     if (minuteEnd == minuteStart) {
       seconds = (secondEnd - secondStart);
@@ -56,7 +52,6 @@ int getCPM(int charsEntered) {
       seconds = seconds - (startSec - endSec);
     }
   }
-  print('DATA:::$seconds');
   if (seconds <= 60) {
     speed = charsEntered;
   } else if (seconds > 60) {

@@ -7,17 +7,15 @@ class SentencePage extends StatefulWidget {
   String temperoryText;
 
   SentencePage({Key? key, required this.temperoryText}) {
-    print("Sentence page");
-    print(temperoryText);
   }
 
-  // TextEditingController inputController = TextEditingController(text: "");
   @override
   State<SentencePage> createState() => _SentencePageState();
 }
 
 class _SentencePageState extends State<SentencePage> {
   TextEditingController inputController = TextEditingController(text: "");
+  int activePage = 0;
   String displayGujaratiText = "";
   String temp = "";
   List<String> displaySentence = [""];
@@ -39,7 +37,7 @@ class _SentencePageState extends State<SentencePage> {
     if (screenHeight! != null)
       return Text(
         a,
-        style: TextStyle(color: c, fontSize: screenHeight! / 30),
+        style: TextStyle(color: c, fontSize: screenWidth! / 15),
       );
     else
       return Text(
@@ -52,8 +50,6 @@ class _SentencePageState extends State<SentencePage> {
   List<Widget> colorFunction(List<String> b, List<Color> color) {
     List<Widget> l = [];
     for (int i = 0; i < b.length; i++) {
-      print("::::1::::::::::::${b[i]}");
-      print(":::2:::::::::::::${color[i]}");
       l.add(getSpan(b[i] + " ", color[i]));
     }
     return l;
@@ -80,14 +76,9 @@ class _SentencePageState extends State<SentencePage> {
   void initState() {
     super.initState();
     displaySentence = widget.temperoryText.split(" ");
-    print("displaySentence");
-    print(displaySentence);
     colorList = colorAppendList(displaySentence.length);
   }
 
-  // var hour = DateTime.utc(2023,2,3);
-
-// int wordIndex = 0;
   double? screenWidth;
   double? screenHeight;
 
@@ -101,26 +92,17 @@ class _SentencePageState extends State<SentencePage> {
       onKeyEvent: (value) {
         if (value.runtimeType.toString() == "KeyDownEvent" &&
             value.character != null) {
-          print(value);
           if (value.character == "k" || value.character == "c") {
             wordList.add(value.character!);
           }
-          // print("::::::::::::::::::::::::::::::::::::::;");
-          // print(hour.minute);
-          // print(":::::::::::::::::::::::::::::::::::::::::::::::");
+
           calculateTime(displayGujaratiText.length);
           speed = getCPM(displayGujaratiText.length);
           temp = convertor(value.character);
           if (temp == " ") {
-            print(calcTextSize(
-                    displaySentence[0], TextStyle(fontSize: screenHeight! / 30))
-                .width);
 
-            // displaySentence.removeAt(0);
-            // colorList.removeAt(0);
-            // colorFunction(displaySentence, colorList);
             jumpToIndex += calcTextSize(displaySentence[colorIndex] + " ",
-                    TextStyle(fontSize: screenHeight! / 30))
+                    TextStyle(fontSize: screenWidth! / 15))
                 .width;
             singlePageController.jumpTo(jumpToIndex);
             if (displayGujaratiText.trim() ==
@@ -129,7 +111,6 @@ class _SentencePageState extends State<SentencePage> {
               incorrectWords += displaySentence[listIndex] + " ";
               colorList[colorIndex] = Colors.green;
               flag = 1;
-              print("Done:::::::::::::::::::::::::::::::");
             } else {
               correctWords += displaySentence[listIndex] + " ";
               incorrectWords += displayGujaratiText + " ";
@@ -144,23 +125,20 @@ class _SentencePageState extends State<SentencePage> {
             }
             textColor = Colors.red;
             colorIndex++;
-            if (listIndex < widget.temperoryText.length - 1) {
+            if (listIndex < displaySentence.length - 1) {
               listIndex++;
             } else {
-              listIndex = 0;
+              activePage = 1;
             }
             displayGujaratiText = "";
           }
           if (displayGujaratiText.length > 0) {
-            // wordIndex++;
             if (displayGujaratiText[displayGujaratiText.length - 1] == "્" &&
                 temp == "ઉ") {
               displayGujaratiText = displayGujaratiText.substring(
                       0, displayGujaratiText.length - 1) +
                   "ુ";
               temp = "";
-
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (temp == "હ" + "્" &&
                 displayGujaratiText[displayGujaratiText.length - 2] == "ક" &&
                 wordList[wordList.length - 1] == "c") {
@@ -183,7 +161,6 @@ class _SentencePageState extends State<SentencePage> {
                       0, displayGujaratiText.length - 1) +
                   "ૂ";
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "ુ" &&
                 temp == "ઉ") {
@@ -191,8 +168,6 @@ class _SentencePageState extends State<SentencePage> {
                       0, displayGujaratiText.length - 1) +
                   "ૂ";
               temp = "";
-
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "ઉ" &&
                 temp == "ઉ") {
@@ -200,7 +175,6 @@ class _SentencePageState extends State<SentencePage> {
                       0, displayGujaratiText.length - 1) +
                   "ઊ";
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] !=
                     "અ" &&
                 displayGujaratiText[displayGujaratiText.length - 1] != "આ" &&
@@ -281,7 +255,6 @@ class _SentencePageState extends State<SentencePage> {
                 temp == "ઉ") {
               displayGujaratiText += "ૌ";
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "્" &&
                 temp == "ઇ") {
@@ -289,7 +262,6 @@ class _SentencePageState extends State<SentencePage> {
                       0, displayGujaratiText.length - 1) +
                   "િ";
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] !=
                     "અ" &&
                 displayGujaratiText[displayGujaratiText.length - 1] != "આ" &&
@@ -370,7 +342,6 @@ class _SentencePageState extends State<SentencePage> {
                 temp == "ઇ") {
               displayGujaratiText += "ૈ";
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] !=
                     "અ" &&
                 displayGujaratiText[displayGujaratiText.length - 1] != "આ" &&
@@ -451,7 +422,6 @@ class _SentencePageState extends State<SentencePage> {
                 temp == "ઇ") {
               displayGujaratiText += "ૄ";
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] !=
                     "અ" &&
                 displayGujaratiText[displayGujaratiText.length - 1] != "આ" &&
@@ -532,7 +502,6 @@ class _SentencePageState extends State<SentencePage> {
                 temp == "ઇ") {
               displayGujaratiText += "ૣ";
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "્" &&
                 temp == "ઈ") {
@@ -540,7 +509,6 @@ class _SentencePageState extends State<SentencePage> {
                       0, displayGujaratiText.length - 1) +
                   "ી";
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "િ" &&
                 temp == "ઇ") {
@@ -548,7 +516,6 @@ class _SentencePageState extends State<SentencePage> {
                       0, displayGujaratiText.length - 1) +
                   "ી";
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "ઇ" &&
                 temp == "ઇ") {
@@ -556,15 +523,13 @@ class _SentencePageState extends State<SentencePage> {
                       0, displayGujaratiText.length - 1) +
                   "ઈ";
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "્" &&
                 temp == "અ") {
               displayGujaratiText = displayGujaratiText.substring(
                   0, displayGujaratiText.length - 1);
-              // wordIndex--;
+
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "્" &&
                 temp == "આ") {
@@ -572,10 +537,8 @@ class _SentencePageState extends State<SentencePage> {
                       0, displayGujaratiText.length - 1) +
                   "ા";
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (temp == "અ") {
               var krish = displayGujaratiText[displayGujaratiText.length - 1];
-              print("$krish:::::::::::::::::::::::::");
               if (displayGujaratiText[displayGujaratiText.length - 1] != "અ" &&
                   displayGujaratiText[displayGujaratiText.length - 1] != "આ" &&
                   displayGujaratiText[displayGujaratiText.length - 1] != "ઇ" &&
@@ -652,18 +615,15 @@ class _SentencePageState extends State<SentencePage> {
                   displayGujaratiText[displayGujaratiText.length - 1] != "/" &&
                   displayGujaratiText[displayGujaratiText.length - 1] != "?" &&
                   displayGujaratiText[displayGujaratiText.length - 1] != "|") {
-                // print("2:::::::::::::::::::::::::");
                 displayGujaratiText += "ા";
                 temp = "";
               }
               if (displayGujaratiText[displayGujaratiText.length - 1] == "અ") {
-                // print("2:::::::::::::::::::::::::");
                 displayGujaratiText = displayGujaratiText.substring(
                         0, displayGujaratiText.length - 1) +
                     "આ";
                 temp = "";
               }
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "્" &&
                 temp == "એ") {
@@ -671,7 +631,6 @@ class _SentencePageState extends State<SentencePage> {
                       0, displayGujaratiText.length - 1) +
                   "ે";
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "એ" &&
                 temp == "એ") {
@@ -679,7 +638,6 @@ class _SentencePageState extends State<SentencePage> {
                       0, displayGujaratiText.length - 1) +
                   "ઍ";
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "્" &&
                 temp == "ઍ") {
@@ -687,7 +645,6 @@ class _SentencePageState extends State<SentencePage> {
                       0, displayGujaratiText.length - 1) +
                   "ૅ";
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "ે" &&
                 temp == "એ") {
@@ -695,7 +652,6 @@ class _SentencePageState extends State<SentencePage> {
                       0, displayGujaratiText.length - 1) +
                   "ૅ";
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "્" &&
                 temp == "ઓ") {
@@ -703,7 +659,6 @@ class _SentencePageState extends State<SentencePage> {
                       0, displayGujaratiText.length - 1) +
                   "ો";
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "ઓ" &&
                 temp == "ઓ") {
@@ -711,7 +666,6 @@ class _SentencePageState extends State<SentencePage> {
                       0, displayGujaratiText.length - 1) +
                   "ઑ";
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "્" &&
                 temp == "ઑ") {
@@ -719,7 +673,6 @@ class _SentencePageState extends State<SentencePage> {
                       0, displayGujaratiText.length - 1) +
                   "ૉ";
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "ો" &&
                 temp == "ઓ") {
@@ -727,7 +680,6 @@ class _SentencePageState extends State<SentencePage> {
                       0, displayGujaratiText.length - 1) +
                   "ૉ";
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "અ" &&
                 temp == "ઇ") {
@@ -735,7 +687,6 @@ class _SentencePageState extends State<SentencePage> {
                       0, displayGujaratiText.length - 1) +
                   "ઐ";
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "અ" &&
                 temp == "ઉ") {
@@ -743,7 +694,6 @@ class _SentencePageState extends State<SentencePage> {
                       0, displayGujaratiText.length - 1) +
                   "ઔ";
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "-" &&
                 temp == "ર" + "્") {
@@ -766,7 +716,6 @@ class _SentencePageState extends State<SentencePage> {
                     "ઋ";
                 temp = "";
               }
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "ઋ" &&
                 temp == "ઇ") {
@@ -774,7 +723,6 @@ class _SentencePageState extends State<SentencePage> {
                       0, displayGujaratiText.length - 1) +
                   "ૠ";
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "-" &&
                 temp == "લ" + "્") {
@@ -797,7 +745,6 @@ class _SentencePageState extends State<SentencePage> {
                     "ઌ";
                 temp = "";
               }
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "ઌ" &&
                 temp == "ઇ") {
@@ -805,7 +752,6 @@ class _SentencePageState extends State<SentencePage> {
                       0, displayGujaratiText.length - 1) +
                   "ૡ";
               temp = "";
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (temp == "ગ" + "્") {
               if (displayGujaratiText.length > 1) {
                 if (displayGujaratiText[displayGujaratiText.length - 2] ==
@@ -819,7 +765,6 @@ class _SentencePageState extends State<SentencePage> {
                   temp = "";
                 }
               }
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (temp == "જ" + "્") {
               if (displayGujaratiText.length > 1) {
                 if (displayGujaratiText[displayGujaratiText.length - 2] ==
@@ -833,7 +778,6 @@ class _SentencePageState extends State<SentencePage> {
                   temp = "";
                 }
               }
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (temp == "હ" + "્") {
               if (displayGujaratiText.length > 1) {
                 if (displayGujaratiText[displayGujaratiText.length - 2] ==
@@ -937,7 +881,6 @@ class _SentencePageState extends State<SentencePage> {
                   temp = "";
                 }
               }
-              // displayGujaratiText = displayGujaratiText.replaceAll("ક્ુ", "કુ");
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                 "્") {
               if (temp == "M") {
@@ -988,430 +931,407 @@ class _SentencePageState extends State<SentencePage> {
         } else if (value.logicalKey.debugName == "Backspace" &&
             value.runtimeType.toString() == "KeyDownEvent") {
           if (displayGujaratiText.length > 1) {
-            // wordIndex--;
-            // temperoryVariable = displayGujaratiText[displayGujaratiText.length-1];
             displayGujaratiText = displayGujaratiText.substring(
                 0, displayGujaratiText.length - 1);
-            print(
-                "::::::::::::::::::::::::::::::::::::::::::::::::::::::$displayGujaratiText");
           } else {
-            // wordIndex=0;
             displayGujaratiText = "";
           }
-          //   if (displayGujaratiText[displayGujaratiText.length - 1] != "અ" &&
-          //       displayGujaratiText[displayGujaratiText.length - 1] != "આ" &&
-          //       displayGujaratiText[displayGujaratiText.length - 1] != "ઇ" &&
-          //       displayGujaratiText[displayGujaratiText.length - 1] != "ઈ" &&
-          //       displayGujaratiText[displayGujaratiText.length - 1] != "ઉ" &&
-          //       displayGujaratiText[displayGujaratiText.length - 1] != "ઊ" &&
-          //       displayGujaratiText[displayGujaratiText.length - 1] != "એ" &&
-          //       displayGujaratiText[displayGujaratiText.length - 1] != "ઍ" &&
-          //       displayGujaratiText[displayGujaratiText.length - 1] != "ઓ" &&
-          //       displayGujaratiText[displayGujaratiText.length - 1] != "ઑ" &&
-          //       displayGujaratiText[displayGujaratiText.length - 1] != "ઐ" &&
-          //       displayGujaratiText[displayGujaratiText.length - 1] != "ઔ"){
-          //
         }
-        // }
-        // else{
-        //
-        //   setState(() {
-        //     displayGujaratiText = displayGujaratiText.substring(0,displayGujaratiText.length-1);
-        //   });
-        // }
       },
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color.fromRGBO(252, 131, 105, 1),
-          title: Text(
-            "Sentence Practice",
-            style: TextStyle(fontSize: screenHeight! / 30),
+          appBar: AppBar(
+            backgroundColor: Colors.cyan,
+            title: Text(
+              "Sentence Practice",
+              style: TextStyle(fontSize: 25),
+            ),
           ),
-        ),
-        body: SingleChildScrollView(
-          child: Column(children: [
-            Container(
-                width: screenWidth,
-                height: screenHeight! / 15,
-                color: Color.fromRGBO(49, 74, 94, 1),
-                child: Row(
-                  children: [
+          body: activePage == 0
+              ? SingleChildScrollView(
+                  child: Column(children: [
                     Container(
-                      margin: EdgeInsets.only(left: screenWidth! / 23),
-                      child: Text(
-                        "Correct",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: screenHeight! / 40,
-                            fontWeight: FontWeight.bold),
-                      ),
+                        width: screenWidth,
+                        color: Colors.blueGrey,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Correct",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: screenWidth! / 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Wrong",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: screenWidth! / 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Accuracy",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: screenWidth! / 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Speed",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: screenWidth! / 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )),
+                    Container(
+                        width: screenWidth!,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  correctWordCount.toString(),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: screenWidth! / 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  incorrectWordCount.toString(),
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontSize: screenWidth! / 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  (((correctWordCount) /
+                                                      (correctWordCount +
+                                                          incorrectWordCount)) *
+                                                  100)
+                                              .toStringAsFixed(2) ==
+                                          "NaN"
+                                      ? "0"
+                                      : (((correctWordCount) /
+                                                  (correctWordCount +
+                                                      incorrectWordCount)) *
+                                              100)
+                                          .toStringAsFixed(2),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: screenWidth! / 17,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  speed.toString(),
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: screenWidth! / 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )),
+                    Container(
+                      color: Colors.blueGrey,
+                      height: screenHeight! / 200,
+                      width: screenWidth,
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: screenWidth! / 13),
-                      child: Text(
-                        "Wrong",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: screenHeight! / 40,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: screenWidth! / 13),
-                      child: Text(
-                        "Accuracy",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: screenHeight! / 40,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: screenWidth! / 13),
-                      child: Text(
-                        "Speed",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: screenHeight! / 40,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                )),
-            Container(
-                width: screenWidth!,
-                height: screenHeight! / 15,
-                // color: const Color.fromRGBO(49, 74, 94, 1),
-                child: Row(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(left: screenWidth! / 9),
-                      child: Text(
-                        correctWordCount.toString(),
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: screenHeight! / 40,
-                          fontWeight: FontWeight.bold,
+                      padding: EdgeInsets.only(
+                          top: screenHeight! / 10, bottom: screenHeight! / 10),
+                      child: SingleChildScrollView(
+                        controller: singlePageController,
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: colorFunction(displaySentence, colorList),
                         ),
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: screenWidth! / 5),
-                      child: Text(
-                        incorrectWordCount.toString(),
-                        style: TextStyle(
-                            color: Colors.red,
-                            fontSize: screenHeight! / 40,
-                            fontWeight: FontWeight.bold),
+                        margin: EdgeInsets.only(top: screenHeight! / 100),
+                        child: GestureDetector(
+                          onDoubleTap: () {
+                            if (inputController.text.isNotEmpty) {
+                              inputController.selection = TextSelection(
+                                  baseOffset: 0,
+                                  extentOffset: inputController.text.length);
+                            }
+                          },
+                          child: Container(
+                            width: screenWidth! / 2,
+                            child: TextFormField(
+                              decoration: const InputDecoration(
+                                  hintText: "Type",
+                                  hintStyle: TextStyle(color: Colors.black12)),
+                              enableInteractiveSelection: true,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: screenWidth! / 10),
+                              onChanged: (value) {
+
+                                displayGujaratiText += temp;
+                                setState(() {
+                                  inputController.text = displayGujaratiText;
+                                  inputController.selection =
+                                      TextSelection.collapsed(
+                                          offset: displayGujaratiText.length);
+                                  temp = "";
+                                });
+                              },
+                              controller: inputController,
+                            ),
+                          ),
+                        )),
+                    Container(
+                      width: screenWidth,
+                      color: Colors.white,
+                      margin: EdgeInsets.only(top: screenHeight! / 15),
+                      child: Column(
+                        children: [
+                          Text(
+                            "Original Paragraph",
+                            style: TextStyle(
+                                fontSize: screenWidth! / 15,
+                                color: const Color.fromRGBO(49, 74, 94, 1),
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: screenHeight! / 50),
+                            child: Text(
+                              correctWords,
+                              style: TextStyle(
+                                  fontSize: screenWidth! / 15,
+                                  color: const Color.fromRGBO(49, 74, 94, 1),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          )
+                        ],
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: screenWidth! / 5),
-                      child: Text(
-                        (((correctWordCount) /
-                                    (correctWordCount + incorrectWordCount)) *
-                                100)
-                            .toStringAsFixed(2),
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: screenHeight! / 40,
-                            fontWeight: FontWeight.bold),
+                      width: screenWidth,
+                      color: Colors.white,
+                      margin: EdgeInsets.only(top: screenHeight! / 30),
+                      child: Column(
+                        children: [
+                          Text(
+                            "Typed Paragraph",
+                            style: TextStyle(
+                                fontSize: screenWidth! / 15,
+                                color: const Color.fromRGBO(49, 74, 94, 1),
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: screenHeight! / 50),
+                            child: Text(
+                              incorrectWords,
+                              style: TextStyle(
+                                  fontSize: screenWidth! / 15,
+                                  color: const Color.fromRGBO(49, 74, 94, 1),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          )
+                        ],
                       ),
-                    ),
+                    )
+                  ]),
+                )
+              : Column(
+                  children: [
                     Container(
-                      margin: EdgeInsets.only(left: screenWidth! / 5.5),
-                      child: Text(
-                        speed.toString(),
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: screenHeight! / 40,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
+                        width: screenWidth,
+                        color: const Color.fromRGBO(49, 74, 94, 1),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Correct",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: screenWidth! / 17,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Wrong",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: screenWidth! / 17,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Accuracy",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: screenWidth! / 17,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Speed",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: screenWidth! / 17,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )),
+                    Column(
+                      children: [
+                        Container(
+                            color: Colors.grey,
+                            width: screenWidth,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      correctWordCount.toString(),
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: screenWidth! / 17,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      incorrectWordCount.toString(),
+                                      style: TextStyle(
+                                          color: Colors.red,
+                                          fontSize: screenWidth! / 17,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      (((correctWordCount) /
+                                                          (correctWordCount +
+                                                              incorrectWordCount)) *
+                                                      100)
+                                                  .toStringAsFixed(2) ==
+                                              "NaN"
+                                          ? "0"
+                                          : (((correctWordCount) /
+                                                      (correctWordCount +
+                                                          incorrectWordCount)) *
+                                                  100)
+                                              .toStringAsFixed(2),
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: screenWidth! / 17,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      speed.toString(),
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: screenWidth! / 17,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )),
+                        Row(
+                          children: [
+                            Expanded(child: Container()),
+                            Expanded(
+                              child: InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
+                                    ),
+                                    margin:
+                                        EdgeInsets.only(top: screenHeight! / 5),
+                                    child: Text(
+                                      "Continue",
+                                      style: TextStyle(
+                                          fontSize: screenWidth! / 13,
+                                          color: Colors.black),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  )),
+                            ),
+                            Expanded(child: Container()),
+                          ],
+                        )
+                      ],
+                    )
                   ],
                 )),
-            Container(
-              color: const Color.fromRGBO(49, 74, 94, 1),
-              height: screenHeight! / 200,
-              width: screenWidth,
-            ),
-            Container(
-              padding: EdgeInsets.only(top: screenHeight! / 10),
-              child: SingleChildScrollView(
-                controller: singlePageController,
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: colorFunction(displaySentence, colorList),
-                ),
-              ),
-            ),
-            Container(
-                margin: EdgeInsets.only(top: screenHeight! / 100),
-                child: GestureDetector(
-                  onDoubleTap: () {
-                    if (inputController.text.isNotEmpty) {
-                      inputController.selection = TextSelection(
-                          baseOffset: 0,
-                          extentOffset: inputController.text.length);
-                      // displayGujaratiText.length = 1;
-                    }
-                  },
-                  child: Container(
-                    width: screenWidth! / 2,
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                          hintText: "Type",
-                          hintStyle: TextStyle(color: Colors.black12)),
-                      enableInteractiveSelection: true,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: screenHeight! / 12),
-                      onChanged: (value) {
-                        print("Text Value:::::::::::::::::::::::::::::::::::");
-                        print(widget.temperoryText[listIndex]);
-                        // if (displayGujaratiText.trim() ==
-                        //     displaySentence[listIndex]) {
-                        //   colorList[colorIndex] = Colors.green;
-                        //   flag = 1;
-                        //   print("Done:::::::::::::::::::::::::::::::");
-                        // } else {
-                        //   colorList[colorIndex] = Colors.red;
-                        // }
-                        displayGujaratiText += temp;
-                        setState(() {
-                          inputController.text = displayGujaratiText;
-                          inputController.selection = TextSelection.collapsed(
-                              offset: displayGujaratiText.length);
-                          temp = "";
-                        });
-                      },
-                      controller: inputController,
-                      // textAlign: TextAlign.center,
-                    ),
-                  ),
-                )),
-            Container(
-              width: screenWidth,
-              height: screenHeight! / 10,
-              color: Colors.white,
-              margin: EdgeInsets.only(top: screenHeight! / 15),
-              child: Column(
-                children: [
-                  Text(
-                    "Original Paragraph",
-                    style: TextStyle(
-                        fontSize: screenHeight! / 30,
-                        color: const Color.fromRGBO(49, 74, 94, 1),
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: screenHeight! / 50),
-                    child: Text(
-                      correctWords,
-                      style: TextStyle(
-                          fontSize: screenHeight! / 40,
-                          color: const Color.fromRGBO(49, 74, 94, 1),
-                          fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              width: screenWidth,
-              height: screenHeight! / 10,
-              color: Colors.white,
-              margin: EdgeInsets.only(top: screenHeight! / 30),
-              child: Column(
-                children: [
-                  Text(
-                    "Typed Paragraph",
-                    style: TextStyle(
-                        fontSize: screenHeight! / 30,
-                        color: const Color.fromRGBO(49, 74, 94, 1),
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: screenHeight! / 50),
-                    child: Text(
-                      incorrectWords,
-                      style: TextStyle(
-                          fontSize: screenHeight! / 40,
-                          color: const Color.fromRGBO(49, 74, 94, 1),
-                          fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ],
-              ),
-            )
-          ]),
-        ),
-        // body: Column(
-        //   children: [
-        //     Row(
-        //       children: [
-        //         Container(
-        //           padding: EdgeInsets.only(top: 50, left: 20),
-        //           child: Column(
-        //             children: [
-        //               Container(
-        //                 child: Text(
-        //                   "Correct Words",
-        //                   style: TextStyle(
-        //                       fontSize: 15, fontWeight: FontWeight.bold),
-        //                 ),
-        //               ),
-        //               Container(
-        //                   alignment: Alignment.centerRight,
-        //                   child: Text(correctWordCount.toString(),
-        //                       style: TextStyle(
-        //                           fontSize: 15, fontWeight: FontWeight.bold))),
-        //             ],
-        //           ),
-        //         ),
-        //         Container(
-        //           padding: EdgeInsets.only(top: 50, left: 20),
-        //           child: Column(
-        //             children: [
-        //               Container(
-        //                 child: Text(
-        //                   "Incorrect Words",
-        //                   style: TextStyle(
-        //                       fontSize: 15, fontWeight: FontWeight.bold),
-        //                 ),
-        //               ),
-        //               Container(
-        //                   alignment: Alignment.centerRight,
-        //                   child: Text(incorrectWordCount.toString(),
-        //                       style: TextStyle(
-        //                           fontSize: 15, fontWeight: FontWeight.bold))),
-        //             ],
-        //           ),
-        //         ),
-        //         Container(
-        //           padding: EdgeInsets.only(top: 50, left: 20),
-        //           child: Column(
-        //             children: [
-        //               Container(
-        //                 child: Text(
-        //                   "Accuracy Words",
-        //                   style: TextStyle(
-        //                       fontSize: 15, fontWeight: FontWeight.bold),
-        //                 ),
-        //               ),
-        //               Container(
-        //                   alignment: Alignment.centerRight,
-        //                   child: Text(
-        //                       (((correctWordCount) /
-        //                                   (correctWordCount +
-        //                                       incorrectWordCount)) *
-        //                               100)
-        //                           .toStringAsFixed(2),
-        //                       style: TextStyle(
-        //                           fontSize: 15, fontWeight: FontWeight.bold))),
-        //             ],
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //
-        //     Container(
-        //       padding: EdgeInsets.only(top: 100),
-        //       child: SingleChildScrollView(
-        //         controller: singlePageController,
-        //         scrollDirection: Axis.horizontal,
-        //         child: Row(
-        //           children: colorFunction(displaySentence, colorList),
-        //         ),
-        //       ),
-        //     ),
-        //     Container(
-        //         margin: const EdgeInsets.only(top: 100),
-        //         child: GestureDetector(
-        //           onDoubleTap: () {
-        //             if (inputController.text.isNotEmpty) {
-        //               inputController.selection = TextSelection(
-        //                   baseOffset: 0,
-        //                   extentOffset: inputController.text.length);
-        //               // displayGujaratiText.length = 1;
-        //             }
-        //           },
-        //           child: TextFormField(
-        //             enableInteractiveSelection: true,
-        //             textAlign: TextAlign.center,
-        //             style: TextStyle(fontSize: 60),
-        //             onChanged: (value) {
-        //               print("Text Value:::::::::::::::::::::::::::::::::::");
-        //               print(widget.temperoryText[listIndex]);
-        //               // if (displayGujaratiText.trim() ==
-        //               //     displaySentence[listIndex]) {
-        //               //   colorList[colorIndex] = Colors.green;
-        //               //   flag = 1;
-        //               //   print("Done:::::::::::::::::::::::::::::::");
-        //               // }
-        //               // else {
-        //               //   colorList[colorIndex] = Colors.red;
-        //               // }
-        //               // if (displayGujaratiText.substring(
-        //               //             0, displayGujaratiText.length - 1) ==
-        //               //         "્" &&
-        //               //     temp == "ઊ") {
-        //               //   temp = "ૂ";
-        //
-        //               // if(displayGujaratiText[displayGujaratiText.length-1]=="્" && temp=="ઉ"){
-        //               //   displayGujaratiText = displayGujaratiText[displayGujaratiText.length-1] + "ુ";
-        //               // }
-        //               // else {
-        //               // print("Temp:::::::::::::::::::::$temp");
-        //               // if (displayGujaratiText != null) {
-        //               //   if (displayGujaratiText[displayGujaratiText.length - 1] ==
-        //               //           "્" &&
-        //               //       temp == "ઉ") {
-        //               //     displayGujaratiText = displayGujaratiText[
-        //               //             displayGujaratiText.length - 1] +
-        //               //         "ુ";
-        //               //   }
-        //               // }
-        //               // else {
-        //               displayGujaratiText += temp;
-        //               // }
-        //               // print(displayGujaratiText[displayGujaratiText.length - 1]);
-        //               // }// temp1 = temp;
-        //               // print("Temp1::::::::::::::::::$temp1");
-        //               setState(() {
-        //                 // print("Temp::::::::$temp");
-        //                 // print(
-        //                 //     "displayGujaratiCharacter::::::::$displayGujaratiText");
-        //                 // displayGujaratiText = temp;
-        //                 // displayGujaratiText = convertor(inputController.text);
-        //                 inputController.text = displayGujaratiText;
-        //                 inputController.selection = TextSelection.collapsed(
-        //                     offset: displayGujaratiText.length);
-        //                 // temp1 = temp;
-        //                 temp = "";
-        //
-        //                 // displayGujaratiText = "";
-        //               });
-        //             },
-        //             controller: inputController,
-        //             // textAlign: TextAlign.center,
-        //           ),
-        //         )),
-        //     Container(
-        //       child: Text(speed.toString()),
-        //     )
-        //
-        //     TextButton(
-        //         onPressed: () {
-        //           // setState(() {
-        //           //       displayGujaratiText += convertor(inputController.text);
-        //           //       inputController.text = displayGujaratiText;
-        //           //
-        //           // });
-        //         },
-        //         child: Text("get"))
-        //   ],
-        // ),
-      ),
     );
   }
 }
@@ -1517,11 +1437,7 @@ String convertor(var a) {
     return "ક્ષ" + "્";
   } else if (a == "9") {
     return "૯";
-  }
-  // else if (a == null){
-  //   return "backspace";
-  // }
-  else {
+  } else {
     return "$a";
   }
 }

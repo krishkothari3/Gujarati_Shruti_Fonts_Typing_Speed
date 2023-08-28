@@ -1,45 +1,122 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:gujarati_shruti_fonts_typing/demo.dart';
+import 'package:get/get.dart';
+import 'package:gujarati_shruti_fonts_typing/test_page.dart';
 
-class TestingPage extends StatefulWidget {
-  List<String> temperoryText;
-  String appBarHeading;
+import 'demo.dart';
 
-  TestingPage(
-      {Key? key, required this.temperoryText, required this.appBarHeading})
-      : super(key: key);
+class DetailTestPage extends StatefulWidget {
+  String temperoryText;
+
+  DetailTestPage({Key? key, required this.temperoryText}) {}
 
   @override
-  State<TestingPage> createState() => _TestingPageState();
+  State<DetailTestPage> createState() => _DetailTestPageState();
 }
 
-class _TestingPageState extends State<TestingPage> {
-  int activePage = 0;
+Map<String, int> timerValue = {
+  "1 min": 60,
+  "2 min": 120,
+  "5 min": 300,
+  "10 min": 600
+};
+String? dropdownValue;
+late int timerSeconds;
+Timer? timer;
+int timerActive = 0;
+int stopButton = 0;
+
+class _DetailTestPageState extends State<DetailTestPage> {
   TextEditingController inputController = TextEditingController(text: "");
   String displayGujaratiText = "";
   String temp = "";
-
+  List<String> displaySentence = [""];
   int listIndex = 0;
+  late List<Color> colorList;
   var textColor = Colors.red;
   int correctWordCount = 0;
   int incorrectWordCount = 0;
   int flag = 0;
-  var speed = 0;
+  int colorIndex = 0;
+  int speed = 0;
+  ScrollController singlePageController = ScrollController();
+  double jumpToIndex = 0;
   String correctWords = "";
   String incorrectWords = "";
   List<String> wordList = [];
 
-  @override
-  void initState() {
-    widget.temperoryText.shuffle();
+  Widget getSpan(String a, Color c) {
+    if (screenHeight! != null)
+      return Text(
+        a,
+        style: TextStyle(color: c, fontSize: screenWidth! / 15),
+      );
+    else
+      return Text(
+        a,
+        style: TextStyle(color: c, fontSize: 15),
+      );
+    ;
+  }
 
-    super.initState();
+  List<Widget> colorFunction(List<String> b, List<Color> color) {
+    List<Widget> l = [];
+    for (int i = 0; i < b.length; i++) {
+      l.add(getSpan(b[i] + " ", color[i]));
+    }
+    return l;
+  }
+
+  List<Color> colorAppendList(int listLength) {
+    List<Color> colors = [];
+    for (int i = 0; i < listLength; i++) {
+      colors.add(Colors.black);
+    }
+    return colors;
+  }
+
+  Size calcTextSize(String text, TextStyle style) {
+    final TextPainter textPainter = TextPainter(
+      text: TextSpan(text: text, style: style),
+      textDirection: TextDirection.ltr,
+      textScaleFactor: WidgetsBinding.instance.window.textScaleFactor,
+    )..layout();
+    return textPainter.size;
   }
 
   @override
+  void initState() {
+    super.initState();
+    displaySentence = widget.temperoryText.split(" ");
+    colorList = colorAppendList(displaySentence.length);
+  }
+
+  double? screenWidth;
+  double? screenHeight;
+
+  @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    int timerStart = 0;
+    screenWidth = MediaQuery.of(context).size.width;
+    screenHeight = MediaQuery.of(context).size.height;
+
+    void stopTimer() {
+      timer?.cancel();
+    }
+
+    void startTimer() {
+      timer = Timer.periodic(Duration(seconds: 1), (_) {
+        if (timerSeconds > 0) {
+          setState(() => timerSeconds--);
+        } else {
+          timerActive = 2;
+          stopTimer();
+          setState(() {});
+        }
+      });
+    }
+
     return KeyboardListener(
       focusNode: FocusNode(),
       autofocus: true,
@@ -49,26 +126,39 @@ class _TestingPageState extends State<TestingPage> {
           if (value.character == "k" || value.character == "c") {
             wordList.add(value.character!);
           }
-
           calculateTime(displayGujaratiText.length);
           speed = getCPM(displayGujaratiText.length);
           temp = convertor(value.character);
           if (temp == " ") {
-            textColor = Colors.red;
-            if (flag == 1) {
-              correctWords += widget.temperoryText[listIndex] + " ";
-              incorrectWords += widget.temperoryText[listIndex] + " ";
-              correctWordCount++;
-              flag = 0;
+            jumpToIndex += calcTextSize(displaySentence[colorIndex] + " ",
+                    TextStyle(fontSize: screenWidth! / 15))
+                .width;
+            singlePageController.jumpTo(jumpToIndex);
+            if (displayGujaratiText.trim() ==
+                displaySentence[listIndex].trim()) {
+              correctWords += displaySentence[listIndex] + " ";
+              incorrectWords += displaySentence[listIndex] + " ";
+              colorList[colorIndex] = Colors.green;
+              flag = 1;
             } else {
-              correctWords += widget.temperoryText[listIndex] + " ";
+              correctWords += displaySentence[listIndex] + " ";
               incorrectWords += displayGujaratiText + " ";
+              colorList[colorIndex] = Colors.red;
+            }
+            if (flag == 1) {
+              flag = 0;
+
+              correctWordCount++;
+            } else {
               incorrectWordCount++;
             }
-            if (listIndex < widget.temperoryText.length - 1) {
+            textColor = Colors.red;
+            colorIndex++;
+            if (listIndex < displaySentence.length - 1) {
               listIndex++;
             } else {
-              activePage = 1;
+              timerActive = 2;
+              setState(() {});
             }
             displayGujaratiText = "";
           }
@@ -822,12 +912,33 @@ class _TestingPageState extends State<TestingPage> {
                 }
               }
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "્" &&
-                temp == "M") {
-              displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
-                  "‌ં";
-              temp = "";
+                "્") {
+              if (temp == "M") {
+                displayGujaratiText = displayGujaratiText.substring(
+                        0, displayGujaratiText.length - 1) +
+                    "‌ં";
+                temp = "";
+              }
+            } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
+                    "ા" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ૈ" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ૌ" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "િ" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ી" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ુ" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ૂ" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ૅ" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ૉ" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ૃ" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ૄ" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ૢ" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ૣ" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ે" ||
+                displayGujaratiText[displayGujaratiText.length - 1] == "ો") {
+              if (temp == "M") {
+                displayGujaratiText += "‌ં";
+                temp = "";
+              }
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
                     "ં" &&
                 temp == "M") {
@@ -858,328 +969,256 @@ class _TestingPageState extends State<TestingPage> {
         }
       },
       child: Scaffold(
+          backgroundColor: Colors.grey,
           appBar: AppBar(
-            backgroundColor: Colors.cyan,
-            title: Text(
-              widget.appBarHeading!,
-              style: TextStyle(fontSize: screenHeight! / 30),
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                stopTimer();
+                timerActive = 0;
+                stopButton = 0;
+                displayGujaratiText = "";
+                temp = "";
+                listIndex = 0;
+                correctWordCount = 0;
+                incorrectWordCount = 0;
+                flag = 0;
+                colorIndex = 0;
+                speed = 0;
+                jumpToIndex = 0;
+                inputController.text = "";
+
+                Navigator.of(context).pop();
+              },
             ),
+            title: Text("Faculty Details"),
+            backgroundColor: Colors.cyan,
           ),
-          body: activePage == 0
-              ? SingleChildScrollView(
-                  child: Column(children: [
-                    Container(
-                        width: screenWidth,
-                        color: Colors.blueGrey,
-                        child: Row(
-                          children: [
-                            Expanded(
+          body: timerActive == 0
+              ? Container(
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: Row(children: [
+                          Expanded(child: Container()),
+                          Expanded(
+                            flex: 20,
+                            child: InkWell(
+                              onTap: () {
+                                timerSeconds = dropdownValue == null
+                                    ? timerValue["1 min"]!
+                                    : timerValue[dropdownValue]!;
+                                timerActive = 1;
+                                startTimer();
+                                setState(() {});
+                              },
                               child: Container(
                                 alignment: Alignment.center,
+                                color: Colors.cyan,
                                 child: Text(
-                                  "Correct",
+                                  "Start",
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: screenWidth! / 20,
+                                      fontSize: screenWidth! / 15,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ),
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Wrong",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: screenWidth / 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
+                          ),
+                          Expanded(
+                            flex: 20,
+                            child: Container(
+                              alignment: Alignment.center,
+                              color: Colors.white,
+                              child: DropdownButton<String>(
+                                value: dropdownValue == null
+                                    ? "1 min"
+                                    : dropdownValue,
+                                items: [
+                                  '1 min',
+                                  '2 min',
+                                  '5 min',
+                                  '10 min'
+                                ].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(
+                                      value,
+                                      style: TextStyle(
+                                          fontSize: screenWidth! / 15),
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    dropdownValue = newValue!;
+                                  });
+                                },
                               ),
                             ),
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Accuracy",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: screenWidth! / 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Speed",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: screenWidth! / 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )),
-                    Container(
-                        width: screenWidth,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  correctWordCount.toString(),
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: screenWidth! / 20,
-                                    fontWeight: FontWeight.bold,
+                          ),
+                          Expanded(child: Container())
+                        ]),
+                      ),
+                      Expanded(flex: 10, child: Container())
+                    ],
+                  ),
+                )
+              : timerActive == 1
+                  ? Container(
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Row(children: [
+                              Expanded(child: Container()),
+                              Expanded(
+                                flex: 15,
+                                child: InkWell(
+                                  onTap: () {
+                                    stopButton == 0
+                                        ? stopTimer()
+                                        : startTimer();
+                                    stopButton = stopButton == 0 ? 1 : 0;
+                                    setState(() {});
+                                  },
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    color: Colors.cyan,
+                                    child: Text(
+                                      stopButton == 0 ? "Stop" : "Resume",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: stopButton == 0
+                                              ? screenWidth! / 15
+                                              : screenWidth! / 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  incorrectWordCount.toString(),
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      fontSize: screenWidth! / 20,
-                                      fontWeight: FontWeight.bold),
+                              Expanded(
+                                flex: 15,
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  color: Colors.white,
+                                  child: Text(
+                                    timerSeconds.toString(),
+                                    style: TextStyle(
+                                        fontSize: screenWidth! / 15,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                               ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  (((correctWordCount) /
-                                                      (correctWordCount +
-                                                          incorrectWordCount)) *
-                                                  100)
-                                              .toStringAsFixed(2) ==
-                                          "NaN"
-                                      ? "0"
-                                      : (((correctWordCount) /
-                                                  (correctWordCount +
-                                                      incorrectWordCount)) *
-                                              100)
-                                          .toStringAsFixed(2),
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: screenWidth! / 17,
-                                      fontWeight: FontWeight.bold),
+                              Expanded(
+                                flex: 15,
+                                child: InkWell(
+                                  onTap: () {
+                                    stopTimer();
+                                    timerActive = 0;
+                                    stopButton = 0;
+                                    listIndex = 0;
+                                    correctWordCount = 0;
+                                    incorrectWordCount = 0;
+                                    flag = 0;
+                                    colorIndex = 0;
+                                    speed = 0;
+                                    jumpToIndex = 0;
+
+                                    setState(() {});
+                                  },
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    color: Colors.cyan,
+                                    child: Text(
+                                      "Reset",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: screenWidth! / 15,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  speed.toString(),
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: screenWidth! / 20,
-                                      fontWeight: FontWeight.bold),
+                              Expanded(child: Container())
+                            ]),
+                          ),
+                          Expanded(
+                            flex: 10,
+                            child: Column(
+                              children: [
+                                Container(
+                                  padding:
+                                      EdgeInsets.only(top: screenHeight! / 10),
+                                  child: SingleChildScrollView(
+                                    controller: singlePageController,
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      children: colorFunction(
+                                          displaySentence, colorList),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ],
-                        )),
-                    Container(
-                      color: Colors.blueGrey,
-                      height: screenHeight / 200,
-                      width: screenWidth,
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(top: screenHeight / 20),
-                      child: Text(
-                        widget.temperoryText[listIndex],
-                        style: TextStyle(
-                            fontSize: screenWidth! / 7, color: textColor),
-                      ),
-                    ),
-                    Container(
-                        margin: EdgeInsets.only(top: screenHeight / 100),
-                        child: GestureDetector(
-                          onDoubleTap: () {
-                            if (inputController.text.isNotEmpty) {
-                              inputController.selection = TextSelection(
-                                  baseOffset: 0,
-                                  extentOffset: inputController.text.length);
-                            }
-                          },
-                          child: Container(
-                            width: screenWidth / 2,
-                            child: TextFormField(
-                              decoration: const InputDecoration(
-                                  hintText: "Type",
-                                  hintStyle: TextStyle(color: Colors.black12)),
-                              enableInteractiveSelection: true,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: screenWidth! / 6),
-                              onChanged: (value) {
-                                displayGujaratiText += temp;
-                                setState(() {
-                                  inputController.text = displayGujaratiText;
-                                  inputController.selection =
-                                      TextSelection.collapsed(
-                                          offset: displayGujaratiText.length);
-                                  temp = "";
-                                });
-                                if (inputController.text.trim() ==
-                                    widget.temperoryText[listIndex].trim()) {
-                                  textColor = Colors.green;
-                                  flag = 1;
-                                } else {
-                                  textColor = Colors.red;
-                                }
-                              },
-                              controller: inputController,
-                            ),
-                          ),
-                        )),
-                    Container(
-                      width: screenWidth,
-                      color: Colors.white,
-                      margin: EdgeInsets.only(top: screenHeight / 15),
-                      child: Column(
-                        children: [
-                          Text(
-                            "Original Paragraph",
-                            style: TextStyle(
-                                fontSize: screenWidth! / 15,
-                                color: const Color.fromRGBO(49, 74, 94, 1),
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: screenHeight / 50),
-                            child: Text(
-                              correctWords,
-                              style: TextStyle(
-                                  fontSize: screenWidth / 15,
-                                  color: const Color.fromRGBO(49, 74, 94, 1),
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: screenWidth,
-                      color: Colors.white,
-                      margin: EdgeInsets.only(top: screenHeight / 30),
-                      child: Column(
-                        children: [
-                          Text(
-                            "Typed Paragraph",
-                            style: TextStyle(
-                                fontSize: screenWidth! / 15,
-                                color: const Color.fromRGBO(49, 74, 94, 1),
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: screenHeight / 50),
-                            child: Text(
-                              incorrectWords,
-                              style: TextStyle(
-                                  fontSize: screenWidth! / 15,
-                                  color: const Color.fromRGBO(49, 74, 94, 1),
-                                  fontWeight: FontWeight.bold),
+                                Container(
+                                    margin: EdgeInsets.only(
+                                        top: screenHeight! / 100),
+                                    child: GestureDetector(
+                                      onDoubleTap: () {
+                                        if (inputController.text.isNotEmpty) {
+                                          inputController.selection =
+                                              TextSelection(
+                                                  baseOffset: 0,
+                                                  extentOffset: inputController
+                                                      .text.length);
+                                        }
+                                      },
+                                      child: Container(
+                                        width: screenWidth! / 2,
+                                        child: TextFormField(
+                                          decoration: const InputDecoration(
+                                              hintText: "Type",
+                                              hintStyle: TextStyle(
+                                                  color: Colors.black12)),
+                                          enableInteractiveSelection: true,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: screenHeight! / 12),
+                                          onChanged: (value) {
+                                            displayGujaratiText += temp;
+                                            setState(() {
+                                              inputController.text =
+                                                  displayGujaratiText;
+                                              inputController.selection =
+                                                  TextSelection.collapsed(
+                                                      offset:
+                                                          displayGujaratiText
+                                                              .length);
+                                              temp = "";
+                                            });
+                                          },
+                                          controller: inputController,
+                                        ),
+                                      ),
+                                    )),
+                              ],
                             ),
                           )
                         ],
                       ),
                     )
-                  ]),
-                )
-              : Column(
-                  children: [
-                    Container(
-                        width: screenWidth,
-                        color: const Color.fromRGBO(49, 74, 94, 1),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Correct",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: screenWidth! / 17,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Wrong",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: screenWidth! / 17,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Accuracy",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: screenWidth! / 17,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Speed",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: screenWidth! / 17,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )),
-                    Column(
+                  : Column(
                       children: [
                         Container(
-                            color: Colors.grey,
                             width: screenWidth,
+                            color: Colors.blueGrey,
                             child: Row(
                               children: [
                                 Expanded(
                                   child: Container(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      correctWordCount.toString(),
+                                      "Correct",
                                       style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: screenWidth! / 17,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      incorrectWordCount.toString(),
-                                      style: TextStyle(
-                                          color: Colors.red,
+                                          color: Colors.white,
                                           fontSize: screenWidth! / 17,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -1189,20 +1228,9 @@ class _TestingPageState extends State<TestingPage> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      (((correctWordCount) /
-                                                          (correctWordCount +
-                                                              incorrectWordCount)) *
-                                                      100)
-                                                  .toStringAsFixed(2) ==
-                                              "NaN"
-                                          ? "0"
-                                          : (((correctWordCount) /
-                                                      (correctWordCount +
-                                                          incorrectWordCount)) *
-                                                  100)
-                                              .toStringAsFixed(2),
+                                      "Wrong",
                                       style: TextStyle(
-                                          color: Colors.black,
+                                          color: Colors.white,
                                           fontSize: screenWidth! / 17,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -1212,9 +1240,21 @@ class _TestingPageState extends State<TestingPage> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      speed.toString(),
+                                      "Accuracy",
                                       style: TextStyle(
-                                          color: Colors.black,
+                                          color: Colors.white,
+                                          fontSize: screenWidth! / 17,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "Speed",
+                                      style: TextStyle(
+                                          color: Colors.white,
                                           fontSize: screenWidth! / 17,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -1222,38 +1262,160 @@ class _TestingPageState extends State<TestingPage> {
                                 ),
                               ],
                             )),
-                        Row(
+                        Column(
                           children: [
-                            Expanded(child: Container()),
-                            Expanded(
-                              child: InkWell(
-                                  onTap: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(20)),
+                            Container(
+                                color: Colors.white,
+                                width: screenWidth,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          correctWordCount.toString(),
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: screenWidth! / 17,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                    margin:
-                                        EdgeInsets.only(top: screenHeight! / 5),
-                                    child: Text(
-                                      "Continue",
-                                      style: TextStyle(
-                                          fontSize: screenWidth! / 13,
-                                          color: Colors.black),
-                                      textAlign: TextAlign.center,
+                                    Expanded(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          incorrectWordCount.toString(),
+                                          style: TextStyle(
+                                              color: Colors.red,
+                                              fontSize: screenWidth! / 17,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
                                     ),
-                                  )),
-                            ),
-                            Expanded(child: Container()),
+                                    Expanded(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          (((correctWordCount) /
+                                                              (correctWordCount +
+                                                                  incorrectWordCount)) *
+                                                          100)
+                                                      .toStringAsFixed(2) ==
+                                                  "NaN"
+                                              ? "0"
+                                              : (((correctWordCount) /
+                                                          (correctWordCount +
+                                                              incorrectWordCount)) *
+                                                      100)
+                                                  .toStringAsFixed(2),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: screenWidth! / 17,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          speed.toString(),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: screenWidth! / 17,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                            Row(
+                              children: [
+                                Expanded(child: Container()),
+                                Expanded(
+                                  flex: 20,
+                                  child: InkWell(
+                                      onTap: () {
+                                        stopTimer();
+                                        timerActive = 0;
+                                        stopButton = 0;
+                                        displayGujaratiText = "";
+                                        temp = "";
+                                        listIndex = 0;
+                                        correctWordCount = 0;
+                                        incorrectWordCount = 0;
+                                        flag = 0;
+                                        colorIndex = 0;
+                                        speed = 0;
+                                        jumpToIndex = 0;
+                                        inputController.text = "";
+
+                                        setState(() {});
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(20)),
+                                        ),
+                                        margin: EdgeInsets.only(
+                                            top: screenHeight! / 5),
+                                        child: Text(
+                                          "Restart",
+                                          style: TextStyle(
+                                              fontSize: screenWidth! / 13,
+                                              color: Colors.black),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      )),
+                                ),
+                                Expanded(child: Container()),
+                                Expanded(
+                                  flex: 20,
+                                  child: InkWell(
+                                      onTap: () {
+                                        stopTimer();
+                                        timerActive = 0;
+                                        stopButton = 0;
+                                        displayGujaratiText = "";
+                                        temp = "";
+                                        listIndex = 0;
+                                        correctWordCount = 0;
+                                        incorrectWordCount = 0;
+                                        flag = 0;
+                                        colorIndex = 0;
+                                        speed = 0;
+                                        jumpToIndex = 0;
+                                        inputController.text = "";
+
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(20)),
+                                        ),
+                                        margin: EdgeInsets.only(
+                                            top: screenHeight! / 5),
+                                        child: Text(
+                                          "Continue",
+                                          style: TextStyle(
+                                              fontSize: screenWidth! / 13,
+                                              color: Colors.black),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      )),
+                                ),
+                                Expanded(child: Container())
+                              ],
+                            )
                           ],
                         )
                       ],
-                    )
-                  ],
-                )),
+                    )),
     );
   }
 }
@@ -1263,6 +1425,8 @@ String convertor(var a) {
     return "ક" + "્";
   } else if (a == "g") {
     return "ગ" + "્";
+  } else if (a == "c") {
+    return "ચ" + "્";
   } else if (a == "j") {
     return "જ" + "્";
   } else if (a == "z") {

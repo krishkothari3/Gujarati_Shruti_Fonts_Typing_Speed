@@ -1,29 +1,25 @@
 import 'dart:convert';
 import 'dart:io';
 
-// import 'package:faculty_api/insert_faculty.dart';
 import 'package:flutter/material.dart';
+import 'package:gujarati_shruti_fonts_typing/testing_page.dart';
 import 'package:http/http.dart' as http;
-// import 'package:intl/intl.dart';
 
-class HomePageScreen extends StatefulWidget {
+class ApiCall extends StatefulWidget {
   @override
-  State<HomePageScreen> createState() => _HomePageScreenState();
+  State<ApiCall> createState() => _ApiCallState();
 }
 
-class _HomePageScreenState extends State<HomePageScreen> {
+class _ApiCallState extends State<ApiCall> {
+  late List<String> wordsList;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Faculty Details"),
-        actions: [
-        ],
-      ),
       body: FutureBuilder<http.Response>(
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return Container(color: Colors.black,);
+            wordsList = (jsonDecode(snapshot.data!.body.toString())["ResultList"][0]["Paragraph"]).split(" ");
+            return TestingPage(temperoryText: wordsList, appBarHeading: "Words Practice");
           }
           else {
             return Center(child: CircularProgressIndicator());
@@ -38,8 +34,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   Future<http.Response> getDataFromApi() async {
     var response = await http
         .get(Uri.parse("http://Api.aswdc.in/Api/TypingMaster/GetWordsByLanguageID/GetWordsByLanguageID/3/TST",),
-        headers: {HttpHeaders.authorizationHeader: "API_KEY=1234"});
-    print(response.body);
+        headers: {"API_KEY":"1234"});
     return response;
   }
 
