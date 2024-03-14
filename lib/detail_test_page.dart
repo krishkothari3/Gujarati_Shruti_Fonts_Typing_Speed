@@ -971,6 +971,7 @@ class _DetailTestPageState extends State<DetailTestPage> {
       child: Scaffold(
           backgroundColor: Colors.grey,
           appBar: AppBar(
+            iconTheme: IconThemeData(color: Colors.white),
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () {
@@ -991,8 +992,8 @@ class _DetailTestPageState extends State<DetailTestPage> {
                 Navigator.of(context).pop();
               },
             ),
-            title: Text("Faculty Details"),
-            backgroundColor: Colors.cyan,
+            title: Text("Test",style: TextStyle(color: Colors.white),),
+            backgroundColor: Color.fromRGBO(227, 88, 73, 1),
           ),
           body: timerActive == 0
               ? Container(
@@ -1014,7 +1015,7 @@ class _DetailTestPageState extends State<DetailTestPage> {
                               },
                               child: Container(
                                 alignment: Alignment.center,
-                                color: Colors.cyan,
+                                color: Color.fromRGBO(227, 88, 73, 1),
                                 child: Text(
                                   "Start",
                                   style: TextStyle(
@@ -1083,7 +1084,7 @@ class _DetailTestPageState extends State<DetailTestPage> {
                                   },
                                   child: Container(
                                     alignment: Alignment.center,
-                                    color: Colors.cyan,
+                                    color: Color.fromRGBO(227, 88, 73, 1),
                                     child: Text(
                                       stopButton == 0 ? "Stop" : "Resume",
                                       style: TextStyle(
@@ -1128,7 +1129,7 @@ class _DetailTestPageState extends State<DetailTestPage> {
                                   },
                                   child: Container(
                                     alignment: Alignment.center,
-                                    color: Colors.cyan,
+                                    color: Color.fromRGBO(227, 88, 73, 1),
                                     child: Text(
                                       "Reset",
                                       style: TextStyle(

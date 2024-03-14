@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:gujarati_shruti_fonts_typing/api_call.dart';
 import 'package:gujarati_shruti_fonts_typing/api_call_sentence.dart';
 import 'package:gujarati_shruti_fonts_typing/contact_us.dart';
+import 'package:gujarati_shruti_fonts_typing/developerScreenInApp.dart';
 import 'package:gujarati_shruti_fonts_typing/letters.dart';
 import 'package:gujarati_shruti_fonts_typing/sentences.dart';
 import 'package:gujarati_shruti_fonts_typing/test_page.dart';
 import 'package:gujarati_shruti_fonts_typing/testing_page.dart';
-
 double? screenWidth;
 double? screenHeight;
 
@@ -20,12 +20,13 @@ class HomeScreenPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.cyan,
+        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: const Color.fromRGBO(227, 88, 73, 1),
         title: Text(
           "Typing Speed Test",
-          style: TextStyle(fontSize: screenHeight! / 30),
+          style: TextStyle(fontSize: screenHeight! / 30,color: Colors.white),
         ),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.share))],
+        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.share,color: Colors.white,))],
       ),
       body: SingleChildScrollView(
         child: Column(children: [
@@ -38,7 +39,7 @@ class HomeScreenPage extends StatelessWidget {
                 child: Column(children: [
                   Container(
                     decoration: BoxDecoration(
-                        color: Colors.cyan,
+                        color: const Color.fromRGBO(227, 88, 73, 1),
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(screenHeight! / 40),
                             bottomRight: Radius.circular(screenHeight! / 40))),
@@ -109,7 +110,7 @@ class HomeScreenPage extends StatelessWidget {
                 child: Column(children: [
                   Container(
                     decoration: BoxDecoration(
-                        color: Colors.cyan,
+                        color: const Color.fromRGBO(227, 88, 73, 1),
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(screenHeight! / 40),
                             bottomRight: Radius.circular(screenHeight! / 40))),
@@ -151,6 +152,19 @@ class HomeScreenPage extends StatelessWidget {
                             child: practiceTypeIcons(
                                 iconPath: "assets/images_png/ic_developer.png",
                                 textMessage: "Give a test")),
+                      ),
+                      Expanded(
+                        child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) {
+                                  return DeveloperScreenInApp();
+                                },
+                              ));
+                            },
+                            child: practiceTypeIcons(
+                                iconPath: "assets/images_png/ic_profile.png",
+                                textMessage: "Developer Information")),
                       )
                     ],
                   )

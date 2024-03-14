@@ -940,10 +940,11 @@ class _SentencePageState extends State<SentencePage> {
       },
       child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.cyan,
+            iconTheme: IconThemeData(color: Colors.white),
+            backgroundColor: const Color.fromRGBO(227, 88, 73, 1),
             title: Text(
               "Sentence Practice",
-              style: TextStyle(fontSize: 25),
+              style: TextStyle(fontSize: 25,color: Colors.white),
             ),
           ),
           body: activePage == 0
@@ -951,7 +952,7 @@ class _SentencePageState extends State<SentencePage> {
                   child: Column(children: [
                     Container(
                         width: screenWidth,
-                        color: Colors.blueGrey,
+                        color: const Color.fromRGBO(227, 88, 73, 1),
                         child: Row(
                           children: [
                             Expanded(
@@ -1071,7 +1072,7 @@ class _SentencePageState extends State<SentencePage> {
                           ],
                         )),
                     Container(
-                      color: Colors.blueGrey,
+                      color: const Color.fromRGBO(227, 88, 73, 1),
                       height: screenHeight! / 200,
                       width: screenWidth,
                     ),

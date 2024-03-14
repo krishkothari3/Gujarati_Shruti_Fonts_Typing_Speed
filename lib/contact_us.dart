@@ -49,10 +49,11 @@ class _ContactUsState extends State<ContactUs> {
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
           title: Text(
-            "Contact Us",
+            "Contact Us",style: TextStyle(color: Colors.white),
           ),
-          backgroundColor: Colors.cyan,
+          backgroundColor: const Color.fromRGBO(227, 88, 73, 1),
           leading: IconButton(
             onPressed: () {
               Navigator.of(context).pop();
@@ -187,7 +188,7 @@ class _ContactUsState extends State<ContactUs> {
                                         },
                                         child: Container(
                                           alignment: Alignment.center,
-                                          color: Colors.cyan,
+                                          color: const Color.fromRGBO(227, 88, 73, 1),
                                           child: Text(
                                             "SEND",
                                             style: TextStyle(
@@ -209,7 +210,7 @@ class _ContactUsState extends State<ContactUs> {
                                         },
                                         child: Container(
                                           alignment: Alignment.center,
-                                          color: Colors.cyan,
+                                          color: const Color.fromRGBO(227, 88, 73, 1),
                                           child: Text(
                                             "CLEAR",
                                             style: TextStyle(

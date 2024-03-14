@@ -34,6 +34,8 @@ dependencies:
   http: ^0.13.5
   get: ^4.6.5
   package_info_plus: ^4.1.0
+#  aswdc_admob: ^1.0.5
+  aswdc_flutter_pub: ^1.0.21
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -70,6 +72,8 @@ flutter:
     - assets/images_png/ic_contact.png
     - assets/images_png/ic_developer.png
     - assets/images_png/ic_profile.png
+    - assets/images_jpg/appLogo.jpg
+    - assets/images_png/appLogo.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

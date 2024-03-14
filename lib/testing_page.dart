@@ -859,10 +859,11 @@ class _TestingPageState extends State<TestingPage> {
       },
       child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.cyan,
+            iconTheme: IconThemeData(color: Colors.white),
+            backgroundColor: const Color.fromRGBO(227, 88, 73, 1),
             title: Text(
               widget.appBarHeading!,
-              style: TextStyle(fontSize: screenHeight! / 30),
+              style: TextStyle(fontSize: screenHeight! / 30,color: Colors.white),
             ),
           ),
           body: activePage == 0
@@ -870,7 +871,7 @@ class _TestingPageState extends State<TestingPage> {
                   child: Column(children: [
                     Container(
                         width: screenWidth,
-                        color: Colors.blueGrey,
+                        color: const Color.fromRGBO(227, 88, 73, 1),
                         child: Row(
                           children: [
                             Expanded(
@@ -990,7 +991,7 @@ class _TestingPageState extends State<TestingPage> {
                           ],
                         )),
                     Container(
-                      color: Colors.blueGrey,
+                      color: const Color.fromRGBO(227, 88, 73, 1),
                       height: screenHeight / 200,
                       width: screenWidth,
                     ),

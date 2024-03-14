@@ -17,8 +17,9 @@ class _TestPageState extends State<TestPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Faculty Details"),
-        backgroundColor: Colors.cyan,
+        iconTheme: IconThemeData(color: Colors.white),
+        title: Text("Test List",style: TextStyle(color: Colors.white),),
+        backgroundColor: const Color.fromRGBO(227, 88, 73, 1),
       ),
       body: FutureBuilder<http.Response>(
         builder: (context, snapshot) {
@@ -47,7 +48,7 @@ class _TestPageState extends State<TestPage> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                              color: Colors.cyan,
+                              color: const Color.fromRGBO(227, 88, 73, 1),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(8))),
                           margin: EdgeInsets.all(8),
