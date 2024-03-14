@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gujarati_shruti_fonts_typing/api_call.dart';
 import 'package:gujarati_shruti_fonts_typing/api_call_sentence.dart';
 import 'package:gujarati_shruti_fonts_typing/contact_us.dart';
@@ -23,7 +25,7 @@ class HomeScreenPage extends StatelessWidget {
         iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: const Color.fromRGBO(227, 88, 73, 1),
         title: Text(
-          "Typing Speed Test",
+          "Gujarati shruti",
           style: TextStyle(fontSize: screenHeight! / 30,color: Colors.white),
         ),
         actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.share,color: Colors.white,))],
@@ -164,7 +166,7 @@ class HomeScreenPage extends StatelessWidget {
                             },
                             child: practiceTypeIcons(
                                 iconPath: "assets/images_png/ic_profile.png",
-                                textMessage: "Developer Information")),
+                                textMessage: "About Us")),
                       )
                     ],
                   )

@@ -18,7 +18,10 @@ class _TestPageState extends State<TestPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.white),
-        title: Text("Test List",style: TextStyle(color: Colors.white),),
+        title: Text(
+          "Test List",
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: const Color.fromRGBO(227, 88, 73, 1),
       ),
       body: FutureBuilder<http.Response>(
@@ -30,60 +33,52 @@ class _TestPageState extends State<TestPage> {
                       .length,
               itemBuilder: (context, index) {
                 return InkWell(
-                  onTap: () {},
-                  child: Column(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) {
-                              return DetailTestPage(
-                                temperoryText:
-                                    jsonDecode(snapshot.data!.body.toString())[
-                                            "ResultList"][index]["Paragraph"]
-                                        .toString(),
-                              );
-                            },
-                          ));
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: const Color.fromRGBO(227, 88, 73, 1),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8))),
-                          margin: EdgeInsets.all(8),
-                          alignment: Alignment.topLeft,
-                          child: Container(
-                            margin: EdgeInsets.only(top: 10, left: 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  jsonDecode(snapshot.data!.body.toString())[
-                                          "ResultList"][index]["Title"]
-                                      .toString(),
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  jsonDecode(snapshot.data!.body.toString())[
-                                              "ResultList"][index]["Paragraph"]
-                                          .toString()
-                                          .substring(0, 80) +
-                                      "....",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) {
+                        return DetailTestPage(
+                          temperoryText:
+                              jsonDecode(snapshot.data!.body.toString())[
+                                      "ResultList"][index]["Paragraph"]
+                                  .toString(),
+                        );
+                      },
+                    ));
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(top: 10, left: 10),
+                    child: Card(
+                      color: Colors.white,
+                      elevation: 8,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8,right: 8,bottom: 5,top: 5),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              jsonDecode(snapshot.data!.body.toString())[
+                                      "ResultList"][index]["Title"]
+                                  .toString(),
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Theme.of(context).primaryColor,
+                                  fontWeight: FontWeight.bold),
                             ),
-                          ),
+                            Text(
+                              jsonDecode(snapshot.data!.body.toString())[
+                                          "ResultList"][index]["Paragraph"]
+                                      .toString()
+                                      .substring(0, 80) +
+                                  "....",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 );
               },

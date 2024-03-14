@@ -38,8 +38,14 @@ class _TestingPageState extends State<TestingPage> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
+    double screenHeight = MediaQuery
+        .of(context)
+        .size
+        .height;
     return KeyboardListener(
       focusNode: FocusNode(),
       autofocus: true,
@@ -76,47 +82,47 @@ class _TestingPageState extends State<TestingPage> {
             if (displayGujaratiText[displayGujaratiText.length - 1] == "્" &&
                 temp == "ઉ") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "ુ";
               temp = "";
             } else if (temp == "હ" + "્" &&
                 displayGujaratiText[displayGujaratiText.length - 2] == "ક" &&
                 wordList[wordList.length - 1] == "c") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 2) +
+                  0, displayGujaratiText.length - 2) +
                   "ચ" +
                   "્";
               temp = "";
             } else if (temp == "હ" + "્" &&
                 displayGujaratiText[displayGujaratiText.length - 2] == "ચ") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 2) +
+                  0, displayGujaratiText.length - 2) +
                   "છ" +
                   "્";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "્" &&
+                "્" &&
                 temp == "ઊ") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "ૂ";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "ુ" &&
+                "ુ" &&
                 temp == "ઉ") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "ૂ";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "ઉ" &&
+                "ઉ" &&
                 temp == "ઉ") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "ઊ";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] !=
-                    "અ" &&
+                "અ" &&
                 displayGujaratiText[displayGujaratiText.length - 1] != "આ" &&
                 displayGujaratiText[displayGujaratiText.length - 1] != "ઇ" &&
                 displayGujaratiText[displayGujaratiText.length - 1] != "ઈ" &&
@@ -196,14 +202,14 @@ class _TestingPageState extends State<TestingPage> {
               displayGujaratiText += "ૌ";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "્" &&
+                "્" &&
                 temp == "ઇ") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "િ";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] !=
-                    "અ" &&
+                "અ" &&
                 displayGujaratiText[displayGujaratiText.length - 1] != "આ" &&
                 displayGujaratiText[displayGujaratiText.length - 1] != "ઇ" &&
                 displayGujaratiText[displayGujaratiText.length - 1] != "ઈ" &&
@@ -283,7 +289,7 @@ class _TestingPageState extends State<TestingPage> {
               displayGujaratiText += "ૈ";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] !=
-                    "અ" &&
+                "અ" &&
                 displayGujaratiText[displayGujaratiText.length - 1] != "આ" &&
                 displayGujaratiText[displayGujaratiText.length - 1] != "ઇ" &&
                 displayGujaratiText[displayGujaratiText.length - 1] != "ઈ" &&
@@ -363,7 +369,7 @@ class _TestingPageState extends State<TestingPage> {
               displayGujaratiText += "ૄ";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] !=
-                    "અ" &&
+                "અ" &&
                 displayGujaratiText[displayGujaratiText.length - 1] != "આ" &&
                 displayGujaratiText[displayGujaratiText.length - 1] != "ઇ" &&
                 displayGujaratiText[displayGujaratiText.length - 1] != "ઈ" &&
@@ -443,38 +449,38 @@ class _TestingPageState extends State<TestingPage> {
               displayGujaratiText += "ૣ";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "્" &&
+                "્" &&
                 temp == "ઈ") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "ી";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "િ" &&
+                "િ" &&
                 temp == "ઇ") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "ી";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "ઇ" &&
+                "ઇ" &&
                 temp == "ઇ") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "ઈ";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "્" &&
+                "્" &&
                 temp == "અ") {
               displayGujaratiText = displayGujaratiText.substring(
                   0, displayGujaratiText.length - 1);
 
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "્" &&
+                "્" &&
                 temp == "આ") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "ા";
               temp = "";
             } else if (temp == "અ") {
@@ -560,146 +566,146 @@ class _TestingPageState extends State<TestingPage> {
               }
               if (displayGujaratiText[displayGujaratiText.length - 1] == "અ") {
                 displayGujaratiText = displayGujaratiText.substring(
-                        0, displayGujaratiText.length - 1) +
+                    0, displayGujaratiText.length - 1) +
                     "આ";
                 temp = "";
               }
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "્" &&
+                "્" &&
                 temp == "એ") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "ે";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "એ" &&
+                "એ" &&
                 temp == "એ") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "ઍ";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "્" &&
+                "્" &&
                 temp == "ઍ") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "ૅ";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "ે" &&
+                "ે" &&
                 temp == "એ") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "ૅ";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "્" &&
+                "્" &&
                 temp == "ઓ") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "ો";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "ઓ" &&
+                "ઓ" &&
                 temp == "ઓ") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "ઑ";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "્" &&
+                "્" &&
                 temp == "ઑ") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "ૉ";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "ો" &&
+                "ો" &&
                 temp == "ઓ") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "ૉ";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "અ" &&
+                "અ" &&
                 temp == "ઇ") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "ઐ";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "અ" &&
+                "અ" &&
                 temp == "ઉ") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "ઔ";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "-" &&
+                "-" &&
                 temp == "ર" + "્") {
               if (displayGujaratiText.length > 1) {
                 if (displayGujaratiText[displayGujaratiText.length - 2] ==
                     "્") {
                   displayGujaratiText = displayGujaratiText.substring(
-                          0, displayGujaratiText.length - 2) +
+                      0, displayGujaratiText.length - 2) +
                       "ૃ";
                   temp = "";
                 } else {
                   displayGujaratiText = displayGujaratiText.substring(
-                          0, displayGujaratiText.length - 1) +
+                      0, displayGujaratiText.length - 1) +
                       "ઋ";
                   temp = "";
                 }
               } else {
                 displayGujaratiText = displayGujaratiText.substring(
-                        0, displayGujaratiText.length - 1) +
+                    0, displayGujaratiText.length - 1) +
                     "ઋ";
                 temp = "";
               }
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "ઋ" &&
+                "ઋ" &&
                 temp == "ઇ") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "ૠ";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "-" &&
+                "-" &&
                 temp == "લ" + "્") {
               if (displayGujaratiText.length > 1) {
                 if (displayGujaratiText[displayGujaratiText.length - 2] ==
                     "્") {
                   displayGujaratiText = displayGujaratiText.substring(
-                          0, displayGujaratiText.length - 2) +
+                      0, displayGujaratiText.length - 2) +
                       "ૢ";
                   temp = "";
                 } else {
                   displayGujaratiText = displayGujaratiText.substring(
-                          0, displayGujaratiText.length - 1) +
+                      0, displayGujaratiText.length - 1) +
                       "ઌ";
                   temp = "";
                 }
               } else {
                 displayGujaratiText = displayGujaratiText.substring(
-                        0, displayGujaratiText.length - 1) +
+                    0, displayGujaratiText.length - 1) +
                     "ઌ";
                 temp = "";
               }
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "ઌ" &&
+                "ઌ" &&
                 temp == "ઇ") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "ૡ";
               temp = "";
             } else if (temp == "ગ" + "્") {
               if (displayGujaratiText.length > 1) {
                 if (displayGujaratiText[displayGujaratiText.length - 2] ==
-                        "ન" &&
+                    "ન" &&
                     displayGujaratiText[displayGujaratiText.length - 1] ==
                         "્") {
                   displayGujaratiText = displayGujaratiText.substring(
-                          0, displayGujaratiText.length - 2) +
+                      0, displayGujaratiText.length - 2) +
                       "ઙ" +
                       "્";
                   temp = "";
@@ -708,11 +714,11 @@ class _TestingPageState extends State<TestingPage> {
             } else if (temp == "જ" + "્") {
               if (displayGujaratiText.length > 1) {
                 if (displayGujaratiText[displayGujaratiText.length - 2] ==
-                        "ન" &&
+                    "ન" &&
                     displayGujaratiText[displayGujaratiText.length - 1] ==
                         "્") {
                   displayGujaratiText = displayGujaratiText.substring(
-                          0, displayGujaratiText.length - 2) +
+                      0, displayGujaratiText.length - 2) +
                       "ઞ" +
                       "્";
                   temp = "";
@@ -721,125 +727,125 @@ class _TestingPageState extends State<TestingPage> {
             } else if (temp == "હ" + "્") {
               if (displayGujaratiText.length > 1) {
                 if (displayGujaratiText[displayGujaratiText.length - 2] ==
-                        "ક" &&
+                    "ક" &&
                     displayGujaratiText[displayGujaratiText.length - 1] ==
                         "્") {
                   displayGujaratiText = displayGujaratiText.substring(
-                          0, displayGujaratiText.length - 2) +
+                      0, displayGujaratiText.length - 2) +
                       "ખ" +
                       "્";
                   temp = "";
                 } else if (displayGujaratiText[
-                            displayGujaratiText.length - 2] ==
-                        "ગ" &&
+                displayGujaratiText.length - 2] ==
+                    "ગ" &&
                     displayGujaratiText[displayGujaratiText.length - 1] ==
                         "્") {
                   displayGujaratiText = displayGujaratiText.substring(
-                          0, displayGujaratiText.length - 2) +
+                      0, displayGujaratiText.length - 2) +
                       "ઘ" +
                       "્";
                   temp = "";
                 } else if (displayGujaratiText[
-                            displayGujaratiText.length - 2] ==
-                        "જ" &&
+                displayGujaratiText.length - 2] ==
+                    "જ" &&
                     displayGujaratiText[displayGujaratiText.length - 1] ==
                         "્") {
                   displayGujaratiText = displayGujaratiText.substring(
-                          0, displayGujaratiText.length - 2) +
+                      0, displayGujaratiText.length - 2) +
                       "ઝ" +
                       "્";
                   temp = "";
                 } else if (displayGujaratiText[
-                            displayGujaratiText.length - 2] ==
-                        "ટ" &&
+                displayGujaratiText.length - 2] ==
+                    "ટ" &&
                     displayGujaratiText[displayGujaratiText.length - 1] ==
                         "્") {
                   displayGujaratiText = displayGujaratiText.substring(
-                          0, displayGujaratiText.length - 2) +
+                      0, displayGujaratiText.length - 2) +
                       "ઠ" +
                       "્";
                   temp = "";
                 } else if (displayGujaratiText[
-                            displayGujaratiText.length - 2] ==
-                        "ડ" &&
+                displayGujaratiText.length - 2] ==
+                    "ડ" &&
                     displayGujaratiText[displayGujaratiText.length - 1] ==
                         "્") {
                   displayGujaratiText = displayGujaratiText.substring(
-                          0, displayGujaratiText.length - 2) +
+                      0, displayGujaratiText.length - 2) +
                       "ઢ્" +
                       "્";
                   temp = "";
                 } else if (displayGujaratiText[
-                            displayGujaratiText.length - 2] ==
-                        "ત" &&
+                displayGujaratiText.length - 2] ==
+                    "ત" &&
                     displayGujaratiText[displayGujaratiText.length - 1] ==
                         "્") {
                   displayGujaratiText = displayGujaratiText.substring(
-                          0, displayGujaratiText.length - 2) +
+                      0, displayGujaratiText.length - 2) +
                       "થ" +
                       "્";
                   temp = "";
                 } else if (displayGujaratiText[
-                            displayGujaratiText.length - 2] ==
-                        "દ" &&
+                displayGujaratiText.length - 2] ==
+                    "દ" &&
                     displayGujaratiText[displayGujaratiText.length - 1] ==
                         "્") {
                   displayGujaratiText = displayGujaratiText.substring(
-                          0, displayGujaratiText.length - 2) +
+                      0, displayGujaratiText.length - 2) +
                       "ધ" +
                       "્";
                   temp = "";
                 } else if (displayGujaratiText[
-                            displayGujaratiText.length - 2] ==
-                        "પ" &&
+                displayGujaratiText.length - 2] ==
+                    "પ" &&
                     displayGujaratiText[displayGujaratiText.length - 1] ==
                         "્") {
                   displayGujaratiText = displayGujaratiText.substring(
-                          0, displayGujaratiText.length - 2) +
+                      0, displayGujaratiText.length - 2) +
                       "ફ" +
                       "્";
                   temp = "";
                 } else if (displayGujaratiText[
-                            displayGujaratiText.length - 2] ==
-                        "બ" &&
+                displayGujaratiText.length - 2] ==
+                    "બ" &&
                     displayGujaratiText[displayGujaratiText.length - 1] ==
                         "્") {
                   displayGujaratiText = displayGujaratiText.substring(
-                          0, displayGujaratiText.length - 2) +
+                      0, displayGujaratiText.length - 2) +
                       "ભ" +
                       "્";
                   temp = "";
                 } else if (displayGujaratiText[
-                            displayGujaratiText.length - 2] ==
-                        "સ" &&
+                displayGujaratiText.length - 2] ==
+                    "સ" &&
                     displayGujaratiText[displayGujaratiText.length - 1] ==
                         "્") {
                   displayGujaratiText = displayGujaratiText.substring(
-                          0, displayGujaratiText.length - 2) +
+                      0, displayGujaratiText.length - 2) +
                       "શ" +
                       "્";
                   temp = "";
                 }
               }
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "્" &&
+                "્" &&
                 temp == "M") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "‌ં";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "ં" &&
+                "ં" &&
                 temp == "M") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "ઁ";
               temp = "";
             } else if (displayGujaratiText[displayGujaratiText.length - 1] ==
-                    "્" &&
+                "્" &&
                 temp == "H") {
               displayGujaratiText = displayGujaratiText.substring(
-                      0, displayGujaratiText.length - 1) +
+                  0, displayGujaratiText.length - 1) +
                   "ઃ";
               temp = "";
             } else if (temp == "backspace") {
@@ -863,398 +869,399 @@ class _TestingPageState extends State<TestingPage> {
             backgroundColor: const Color.fromRGBO(227, 88, 73, 1),
             title: Text(
               widget.appBarHeading!,
-              style: TextStyle(fontSize: screenHeight! / 30,color: Colors.white),
+              style: TextStyle(
+                  fontSize: screenHeight! / 30, color: Colors.white),
             ),
           ),
           body: activePage == 0
               ? SingleChildScrollView(
-                  child: Column(children: [
-                    Container(
-                        width: screenWidth,
-                        color: const Color.fromRGBO(227, 88, 73, 1),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Correct",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: screenWidth! / 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Wrong",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: screenWidth / 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Accuracy",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: screenWidth! / 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Speed",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: screenWidth! / 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )),
-                    Container(
-                        width: screenWidth,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  correctWordCount.toString(),
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: screenWidth! / 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  incorrectWordCount.toString(),
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      fontSize: screenWidth! / 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  (((correctWordCount) /
-                                                      (correctWordCount +
-                                                          incorrectWordCount)) *
-                                                  100)
-                                              .toStringAsFixed(2) ==
-                                          "NaN"
-                                      ? "0"
-                                      : (((correctWordCount) /
-                                                  (correctWordCount +
-                                                      incorrectWordCount)) *
-                                              100)
-                                          .toStringAsFixed(2),
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: screenWidth! / 17,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  speed.toString(),
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: screenWidth! / 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )),
-                    Container(
-                      color: const Color.fromRGBO(227, 88, 73, 1),
-                      height: screenHeight / 200,
-                      width: screenWidth,
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(top: screenHeight / 20),
-                      child: Text(
-                        widget.temperoryText[listIndex],
-                        style: TextStyle(
-                            fontSize: screenWidth! / 7, color: textColor),
-                      ),
-                    ),
-                    Container(
-                        margin: EdgeInsets.only(top: screenHeight / 100),
-                        child: GestureDetector(
-                          onDoubleTap: () {
-                            if (inputController.text.isNotEmpty) {
-                              inputController.selection = TextSelection(
-                                  baseOffset: 0,
-                                  extentOffset: inputController.text.length);
-                            }
-                          },
-                          child: Container(
-                            width: screenWidth / 2,
-                            child: TextFormField(
-                              decoration: const InputDecoration(
-                                  hintText: "Type",
-                                  hintStyle: TextStyle(color: Colors.black12)),
-                              enableInteractiveSelection: true,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: screenWidth! / 6),
-                              onChanged: (value) {
-                                displayGujaratiText += temp;
-                                setState(() {
-                                  inputController.text = displayGujaratiText;
-                                  inputController.selection =
-                                      TextSelection.collapsed(
-                                          offset: displayGujaratiText.length);
-                                  temp = "";
-                                });
-                                if (inputController.text.trim() ==
-                                    widget.temperoryText[listIndex].trim()) {
-                                  textColor = Colors.green;
-                                  flag = 1;
-                                } else {
-                                  textColor = Colors.red;
-                                }
-                              },
-                              controller: inputController,
-                            ),
-                          ),
-                        )),
-                    Container(
-                      width: screenWidth,
-                      color: Colors.white,
-                      margin: EdgeInsets.only(top: screenHeight / 15),
-                      child: Column(
-                        children: [
-                          Text(
-                            "Original Paragraph",
+            child: Column(children: [
+              Container(
+                  width: screenWidth,
+                  color: const Color.fromRGBO(227, 88, 73, 1),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Correct",
                             style: TextStyle(
-                                fontSize: screenWidth! / 15,
-                                color: const Color.fromRGBO(49, 74, 94, 1),
+                                color: Colors.white,
+                                fontSize: screenWidth! / 20,
                                 fontWeight: FontWeight.bold),
                           ),
-                          Container(
-                            margin: EdgeInsets.only(top: screenHeight / 50),
-                            child: Text(
-                              correctWords,
-                              style: TextStyle(
-                                  fontSize: screenWidth / 15,
-                                  color: const Color.fromRGBO(49, 74, 94, 1),
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          )
-                        ],
+                        ),
                       ),
-                    ),
-                    Container(
-                      width: screenWidth,
-                      color: Colors.white,
-                      margin: EdgeInsets.only(top: screenHeight / 30),
-                      child: Column(
-                        children: [
-                          Text(
-                            "Typed Paragraph",
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Wrong",
                             style: TextStyle(
-                                fontSize: screenWidth! / 15,
-                                color: const Color.fromRGBO(49, 74, 94, 1),
+                                color: Colors.white,
+                                fontSize: screenWidth / 20,
                                 fontWeight: FontWeight.bold),
                           ),
-                          Container(
-                            margin: EdgeInsets.only(top: screenHeight / 50),
-                            child: Text(
-                              incorrectWords,
-                              style: TextStyle(
-                                  fontSize: screenWidth! / 15,
-                                  color: const Color.fromRGBO(49, 74, 94, 1),
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          )
-                        ],
+                        ),
                       ),
-                    )
-                  ]),
-                )
-              : Column(
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Accuracy",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: screenWidth! / 20,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Speed",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: screenWidth! / 20,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
+              Container(
+                  width: screenWidth,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            correctWordCount.toString(),
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: screenWidth! / 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            incorrectWordCount.toString(),
+                            style: TextStyle(
+                                color: Colors.red,
+                                fontSize: screenWidth! / 20,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            (((correctWordCount) /
+                                (correctWordCount +
+                                    incorrectWordCount)) *
+                                100)
+                                .toStringAsFixed(2) ==
+                                "NaN"
+                                ? "0"
+                                : (((correctWordCount) /
+                                (correctWordCount +
+                                    incorrectWordCount)) *
+                                100)
+                                .toStringAsFixed(2),
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: screenWidth! / 17,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            speed.toString(),
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: screenWidth! / 20,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
+              Container(
+                color: const Color.fromRGBO(227, 88, 73, 1),
+                height: screenHeight / 200,
+                width: screenWidth,
+              ),
+              Container(
+                padding: EdgeInsets.only(top: screenHeight / 20),
+                child: Text(
+                  widget.temperoryText[listIndex],
+                  style: TextStyle(
+                      fontSize: screenWidth! / 7, color: textColor),
+                ),
+              ),
+              Container(
+                  margin: EdgeInsets.only(top: screenHeight / 100),
+                  child: GestureDetector(
+                    onDoubleTap: () {
+                      if (inputController.text.isNotEmpty) {
+                        inputController.selection = TextSelection(
+                            baseOffset: 0,
+                            extentOffset: inputController.text.length);
+                      }
+                    },
+                    child: Container(
+                      width: screenWidth / 2,
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                            hintText: "Type",
+                            hintStyle: TextStyle(color: Colors.black12)),
+                        enableInteractiveSelection: true,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: screenWidth! / 6),
+                        onChanged: (value) {
+                          displayGujaratiText += temp;
+                          setState(() {
+                            inputController.text = displayGujaratiText;
+                            inputController.selection =
+                                TextSelection.collapsed(
+                                    offset: displayGujaratiText.length);
+                            temp = "";
+                          });
+                          if (inputController.text.trim() ==
+                              widget.temperoryText[listIndex].trim()) {
+                            textColor = Colors.green;
+                            flag = 1;
+                          } else {
+                            textColor = Colors.red;
+                          }
+                        },
+                        controller: inputController,
+                      ),
+                    ),
+                  )),
+              Container(
+                width: screenWidth,
+                color: Colors.white,
+                margin: EdgeInsets.only(top: screenHeight / 15),
+                child: Column(
                   children: [
+                    Text(
+                      "Original Paragraph",
+                      style: TextStyle(
+                          fontSize: screenWidth! / 15,
+                          color: const Color.fromRGBO(49, 74, 94, 1),
+                          fontWeight: FontWeight.bold),
+                    ),
                     Container(
-                        width: screenWidth,
-                        color: const Color.fromRGBO(49, 74, 94, 1),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Correct",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: screenWidth! / 17,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Wrong",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: screenWidth! / 17,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Accuracy",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: screenWidth! / 17,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Speed",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: screenWidth! / 17,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )),
-                    Column(
-                      children: [
-                        Container(
-                            color: Colors.grey,
-                            width: screenWidth,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      correctWordCount.toString(),
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: screenWidth! / 17,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      incorrectWordCount.toString(),
-                                      style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: screenWidth! / 17,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      (((correctWordCount) /
-                                                          (correctWordCount +
-                                                              incorrectWordCount)) *
-                                                      100)
-                                                  .toStringAsFixed(2) ==
-                                              "NaN"
-                                          ? "0"
-                                          : (((correctWordCount) /
-                                                      (correctWordCount +
-                                                          incorrectWordCount)) *
-                                                  100)
-                                              .toStringAsFixed(2),
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: screenWidth! / 17,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      speed.toString(),
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: screenWidth! / 17,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )),
-                        Row(
-                          children: [
-                            Expanded(child: Container()),
-                            Expanded(
-                              child: InkWell(
-                                  onTap: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(20)),
-                                    ),
-                                    margin:
-                                        EdgeInsets.only(top: screenHeight! / 5),
-                                    child: Text(
-                                      "Continue",
-                                      style: TextStyle(
-                                          fontSize: screenWidth! / 13,
-                                          color: Colors.black),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  )),
-                            ),
-                            Expanded(child: Container()),
-                          ],
-                        )
-                      ],
+                      margin: EdgeInsets.only(top: screenHeight / 50),
+                      child: Text(
+                        correctWords,
+                        style: TextStyle(
+                            fontSize: screenWidth / 15,
+                            color: const Color.fromRGBO(49, 74, 94, 1),
+                            fontWeight: FontWeight.bold),
+                      ),
                     )
                   ],
-                )),
+                ),
+              ),
+              Container(
+                width: screenWidth,
+                color: Colors.white,
+                margin: EdgeInsets.only(top: screenHeight / 30),
+                child: Column(
+                  children: [
+                    Text(
+                      "Typed Paragraph",
+                      style: TextStyle(
+                          fontSize: screenWidth! / 15,
+                          color: const Color.fromRGBO(49, 74, 94, 1),
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: screenHeight / 50),
+                      child: Text(
+                        incorrectWords,
+                        style: TextStyle(
+                            fontSize: screenWidth! / 15,
+                            color: const Color.fromRGBO(49, 74, 94, 1),
+                            fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ]),
+          )
+              : Column(
+            children: [
+              Container(
+                  width: screenWidth,
+                  color: const Color.fromRGBO(49, 74, 94, 1),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Correct",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: screenWidth! / 17,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Wrong",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: screenWidth! / 17,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Accuracy",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: screenWidth! / 17,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Speed",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: screenWidth! / 17,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
+              Column(
+                children: [
+                  Container(
+                      color: Colors.grey,
+                      width: screenWidth,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                correctWordCount.toString(),
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: screenWidth! / 17,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                incorrectWordCount.toString(),
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: screenWidth! / 17,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                (((correctWordCount) /
+                                    (correctWordCount +
+                                        incorrectWordCount)) *
+                                    100)
+                                    .toStringAsFixed(2) ==
+                                    "NaN"
+                                    ? "0"
+                                    : (((correctWordCount) /
+                                    (correctWordCount +
+                                        incorrectWordCount)) *
+                                    100)
+                                    .toStringAsFixed(2),
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: screenWidth! / 17,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                speed.toString(),
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: screenWidth! / 17,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )),
+                  Row(
+                    children: [
+                      Expanded(child: Container()),
+                      Expanded(
+                        child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(20)),
+                              ),
+                              margin:
+                              EdgeInsets.only(top: screenHeight! / 5),
+                              child: Text(
+                                "Continue",
+                                style: TextStyle(
+                                    fontSize: screenWidth! / 13,
+                                    color: Colors.black),
+                                textAlign: TextAlign.center,
+                              ),
+                            )),
+                      ),
+                      Expanded(child: Container()),
+                    ],
+                  )
+                ],
+              )
+            ],
+          )),
     );
   }
 }

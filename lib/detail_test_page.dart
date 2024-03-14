@@ -1014,6 +1014,7 @@ class _DetailTestPageState extends State<DetailTestPage> {
                                 setState(() {});
                               },
                               child: Container(
+                                margin: EdgeInsets.only(top: 8),
                                 alignment: Alignment.center,
                                 color: Color.fromRGBO(227, 88, 73, 1),
                                 child: Text(
@@ -1029,6 +1030,7 @@ class _DetailTestPageState extends State<DetailTestPage> {
                           Expanded(
                             flex: 20,
                             child: Container(
+                              margin: EdgeInsets.only(top: 8),
                               alignment: Alignment.center,
                               color: Colors.white,
                               child: DropdownButton<String>(
@@ -1083,10 +1085,11 @@ class _DetailTestPageState extends State<DetailTestPage> {
                                     setState(() {});
                                   },
                                   child: Container(
+                                    margin: EdgeInsets.only(top: 8),
                                     alignment: Alignment.center,
                                     color: Color.fromRGBO(227, 88, 73, 1),
                                     child: Text(
-                                      stopButton == 0 ? "Stop" : "Resume",
+                                      stopButton == 0 ? "Pause" : "Resume",
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: stopButton == 0
@@ -1100,10 +1103,11 @@ class _DetailTestPageState extends State<DetailTestPage> {
                               Expanded(
                                 flex: 15,
                                 child: Container(
+                                  margin: EdgeInsets.only(top: 8),
                                   alignment: Alignment.center,
                                   color: Colors.white,
                                   child: Text(
-                                    timerSeconds.toString(),
+                                    formattedTime(timeInSecond: timerSeconds),
                                     style: TextStyle(
                                         fontSize: screenWidth! / 15,
                                         fontWeight: FontWeight.bold),
@@ -1128,6 +1132,7 @@ class _DetailTestPageState extends State<DetailTestPage> {
                                     setState(() {});
                                   },
                                   child: Container(
+                                    margin: EdgeInsets.only(top: 8),
                                     alignment: Alignment.center,
                                     color: Color.fromRGBO(227, 88, 73, 1),
                                     child: Text(
@@ -1210,7 +1215,7 @@ class _DetailTestPageState extends State<DetailTestPage> {
                       children: [
                         Container(
                             width: screenWidth,
-                            color: Colors.blueGrey,
+                            color: const Color.fromRGBO(227, 88, 73, 1),
                             child: Row(
                               children: [
                                 Expanded(
@@ -1220,7 +1225,7 @@ class _DetailTestPageState extends State<DetailTestPage> {
                                       "Correct",
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: screenWidth! / 17,
+                                          fontSize: screenWidth! / 20,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -1232,7 +1237,7 @@ class _DetailTestPageState extends State<DetailTestPage> {
                                       "Wrong",
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: screenWidth! / 17,
+                                          fontSize: screenWidth! / 20,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -1244,7 +1249,7 @@ class _DetailTestPageState extends State<DetailTestPage> {
                                       "Accuracy",
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: screenWidth! / 17,
+                                          fontSize: screenWidth! / 20,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -1256,7 +1261,7 @@ class _DetailTestPageState extends State<DetailTestPage> {
                                       "Speed",
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: screenWidth! / 17,
+                                          fontSize: screenWidth! / 20,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -1266,7 +1271,7 @@ class _DetailTestPageState extends State<DetailTestPage> {
                         Column(
                           children: [
                             Container(
-                                color: Colors.white,
+                              color: Colors.white,
                                 width: screenWidth,
                                 child: Row(
                                   children: [
@@ -1277,7 +1282,7 @@ class _DetailTestPageState extends State<DetailTestPage> {
                                           correctWordCount.toString(),
                                           style: TextStyle(
                                             color: Colors.black,
-                                            fontSize: screenWidth! / 17,
+                                            fontSize: screenWidth! / 20,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
@@ -1290,7 +1295,7 @@ class _DetailTestPageState extends State<DetailTestPage> {
                                           incorrectWordCount.toString(),
                                           style: TextStyle(
                                               color: Colors.red,
-                                              fontSize: screenWidth! / 17,
+                                              fontSize: screenWidth! / 20,
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
@@ -1300,17 +1305,17 @@ class _DetailTestPageState extends State<DetailTestPage> {
                                         alignment: Alignment.center,
                                         child: Text(
                                           (((correctWordCount) /
-                                                              (correctWordCount +
-                                                                  incorrectWordCount)) *
-                                                          100)
-                                                      .toStringAsFixed(2) ==
-                                                  "NaN"
+                                              (correctWordCount +
+                                                  incorrectWordCount)) *
+                                              100)
+                                              .toStringAsFixed(2) ==
+                                              "NaN"
                                               ? "0"
                                               : (((correctWordCount) /
-                                                          (correctWordCount +
-                                                              incorrectWordCount)) *
-                                                      100)
-                                                  .toStringAsFixed(2),
+                                              (correctWordCount +
+                                                  incorrectWordCount)) *
+                                              100)
+                                              .toStringAsFixed(2),
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontSize: screenWidth! / 17,
@@ -1325,7 +1330,7 @@ class _DetailTestPageState extends State<DetailTestPage> {
                                           speed.toString(),
                                           style: TextStyle(
                                               color: Colors.black,
-                                              fontSize: screenWidth! / 17,
+                                              fontSize: screenWidth! / 20,
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
@@ -1414,11 +1419,19 @@ class _DetailTestPageState extends State<DetailTestPage> {
                               ],
                             )
                           ],
-                        )
+                        ),
                       ],
                     )),
     );
   }
+}
+
+String formattedTime({required int timeInSecond}) {
+  int sec = timeInSecond % 60;
+  int min = (timeInSecond / 60).floor();
+  String minute = min.toString().length <= 1 ? "0$min" : "$min";
+  String second = sec.toString().length <= 1 ? "0$sec" : "$sec";
+  return "$minute : $second";
 }
 
 String convertor(var a) {
